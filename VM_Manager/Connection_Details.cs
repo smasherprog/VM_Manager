@@ -16,9 +16,11 @@ namespace VM_Manager
         private System.Threading.Thread _pollthread = null;
         private bool _keep_polling = true;
         private Int64 Counter = 0;
+        private Dictionary<string, Libvirt._virStoragePoolInfo> _Pools = new Dictionary<string, Libvirt._virStoragePoolInfo>();
         public Connection_Details(Libvirt.virConnectPtr connection)
         {
             InitializeComponent();
+
             _connection = connection;
 
             _pollthread = new System.Threading.Thread(UpdateStats);
@@ -49,8 +51,33 @@ namespace VM_Manager
             cpumhz.Text = info.mhz.ToString();
             cpucores.Text = info.cores.ToString();
             cputhreads.Text = info.threads.ToString();
-      
-     
+      ///////INTERFACE TAB
+            string[] interfaces;
+            Libvirt.API.virConnectListDefinedInterfaces(_connection,out interfaces, 10);
+            foreach(var item in interfaces)
+            {
+                Network_Interfaces.Items.Add(item);
+            }
+            Libvirt.API.virConnectListInterfaces(_connection, out interfaces, 10);
+            foreach(var item in interfaces)
+            {
+                Network_Interfaces.Items.Add(item);
+            }
+     /////////STORAGE TAB
+            Libvirt.virStoragePoolPtr[] pools;
+            Libvirt.API.virConnectListAllStoragePools(_connection, out pools, Libvirt.virConnectListAllStoragePoolsFlags.VIR_CONNECT_LIST_STORAGE_POOLS_ACTIVE);
+
+            foreach(var item in pools)
+            {
+                Libvirt._virStoragePoolInfo poolinfo;
+                Libvirt.API.virStoragePoolGetInfo(item, out poolinfo);
+                var poolname = Libvirt.API.virStoragePoolGetName(item);
+           
+                _Pools.Add(poolname, poolinfo);
+                item.Dispose();
+                Pool_Listing.Items.Add(poolname);
+            }
+            
         }
         void UpdateStats()
         {
@@ -121,14 +148,33 @@ namespace VM_Manager
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var stpool = "<pool type=\"dir\"><name>virtotherimages</name><target><path>/var/lib/virt/othertest</path></target></pool>";
-            var pooldef = Libvirt.API.virStoragePoolDefineXML(_connection, stpool);
-            var suc = Libvirt.API.virStoragePoolBuild(pooldef, Libvirt.virStoragePoolBuildFlags.VIR_STORAGE_POOL_BUILD_NEW);
-            Libvirt.PInvoke.virStoragePoolFree(pooldef);
+            //var stpool = "<pool type=\"dir\"><name>virtotherimages</name><target><path>/var/lib/virt/othertest</path></target></pool>";
+            //var pooldef = Libvirt.API.virStoragePoolDefineXML(_connection, stpool);
+            //var suc = Libvirt.API.virStoragePoolBuild(pooldef, Libvirt.virStoragePoolBuildFlags.VIR_STORAGE_POOL_BUILD_NEW);
+            //Libvirt.PInvoke.virStoragePoolFree(pooldef);
         }
 
-    
+        private void Pool_Listing_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(Pool_Listing.SelectedItems.Count > 0)
+            {
+                UpdateStorageInfo(Pool_Listing.SelectedItems[0].ToString());
+            }
+        }
+        private void UpdateStorageInfo(string name)
+        {
+            Libvirt._virStoragePoolInfo info;
+            if(_Pools.TryGetValue(name, out info))
+            {
+                Storage_Default_txt.Text = VM_Manager.Utilities.Formatting.Format((long)info.available) + " Free / " + VM_Manager.Utilities.Formatting.Format((long)(info.capacity - info.available)) + " in Use ";
+       
+            }
+        }
 
-
+        private void Create_Storage_Pool_btn_Click(object sender, EventArgs e)
+        {
+            var fs = new Add_Storage_Pool();
+            fs.ShowDialog();
+        }
     }
 }

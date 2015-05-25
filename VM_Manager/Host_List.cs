@@ -14,7 +14,7 @@ namespace VM_Manager
 
 
     public partial class Host_List : Form
-    {  
+    {
         private Libvirt.virConnectAuthCallback _authcallback;
         private Libvirt.virConnectPtr _connection;
         public Host_List()
@@ -26,8 +26,7 @@ namespace VM_Manager
 
         void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if(_connection.Pointer != IntPtr.Zero)
-                Libvirt.API.virConnectClose(_connection);
+            _connection.Dispose();
         }
 
         private int virConnectAuthCallback(ref Libvirt._virConnectCredential[] cred, uint ncred, IntPtr cbdata)
@@ -72,7 +71,7 @@ namespace VM_Manager
                 button1.Enabled = false;
                 Console.WriteLine("Unable to connect!");
             }
-                
+
             string[] names;
 
             Libvirt.API.virConnectListDefinedDomains(_connection, out names, 10);
@@ -84,15 +83,15 @@ namespace VM_Manager
             Libvirt.API.virConnectListDomains(_connection, out domainids, 10);
             foreach(var item in domainids)
             {
-                var domainptr = Libvirt.API.virDomainLookupByID(_connection, item);
-                if(domainptr.Pointer != IntPtr.Zero)
+                using(var domainptr = Libvirt.API.virDomainLookupByID(_connection, item))
                 {
-                    string domainName = Libvirt.API.virDomainGetName(domainptr);
-                    Libvirt.API.virDomainFree(domainptr);
-                    Console.WriteLine("Domain Name: '" + domainName + "', ID: " +item);
+                    if(domainptr.Pointer != IntPtr.Zero)
+                    {
+                        string domainName = Libvirt.API.virDomainGetName(domainptr);
+                        Console.WriteLine("Domain Name: '" + domainName + "', ID: " + item);
+                    }
                 }
             }
-   
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -100,23 +99,6 @@ namespace VM_Manager
             var f = new Connection_Details(_connection);
             f.Show();
         }
-//        iowait
-//15880000000
-//kernel
-//120740000000
-//user
-//98540000000
-//idle
-//8529880000000
-//iowait
-//15880000000
-//kernel
-//120770000000
-//user
-//98570000000
-//idle
-//8531850000000
-//iowait
-//15880000000
+
     }
 }
