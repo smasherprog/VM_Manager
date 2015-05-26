@@ -28,11 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            this.Overview = new System.Windows.Forms.TabControl();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            this.Host_TabControl = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
@@ -83,6 +83,7 @@
             this.VirtualNetworkState = new System.Windows.Forms.Label();
             this.Network_Interfaces = new System.Windows.Forms.ListBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
             this.Storage_Delete_Volume_btn = new System.Windows.Forms.Button();
             this.Storage_Create_Volume_btn = new System.Windows.Forms.Button();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
@@ -95,16 +96,21 @@
             this.Storage_Pool_Type_txt = new System.Windows.Forms.Label();
             this.Storage_Pool_Location_txt = new System.Windows.Forms.Label();
             this.Storage_Pool_State_txt = new System.Windows.Forms.Label();
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.label21 = new System.Windows.Forms.Label();
+            this.Storage_AutoStart_ck = new System.Windows.Forms.CheckBox();
+            this.Volume_ListView = new System.Windows.Forms.ListView();
             this.Sotrage_Column_Volume = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Storage_Column_Allocation = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Sotrage_Column_Size = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Sotrage_Column_Format = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Sotrage_Column_Used_By = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.Delete_Storage_Pool_btn = new System.Windows.Forms.Button();
+            this.Stop_Storage_Pool_btn = new System.Windows.Forms.Button();
             this.Create_Storage_Pool_btn = new System.Windows.Forms.Button();
             this.Pool_Listing = new System.Windows.Forms.ListBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.Overview.SuspendLayout();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.Host_TabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
@@ -124,18 +130,18 @@
             this.tableLayoutPanel5.SuspendLayout();
             this.SuspendLayout();
             // 
-            // Overview
+            // Host_TabControl
             // 
-            this.Overview.Controls.Add(this.tabPage1);
-            this.Overview.Controls.Add(this.tabPage2);
-            this.Overview.Controls.Add(this.tabPage3);
-            this.Overview.Controls.Add(this.tabPage4);
-            this.Overview.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Overview.Location = new System.Drawing.Point(0, 0);
-            this.Overview.Name = "Overview";
-            this.Overview.SelectedIndex = 0;
-            this.Overview.Size = new System.Drawing.Size(916, 704);
-            this.Overview.TabIndex = 4;
+            this.Host_TabControl.Controls.Add(this.tabPage1);
+            this.Host_TabControl.Controls.Add(this.tabPage2);
+            this.Host_TabControl.Controls.Add(this.tabPage3);
+            this.Host_TabControl.Controls.Add(this.tabPage4);
+            this.Host_TabControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Host_TabControl.Location = new System.Drawing.Point(0, 0);
+            this.Host_TabControl.Name = "Host_TabControl";
+            this.Host_TabControl.SelectedIndex = 0;
+            this.Host_TabControl.Size = new System.Drawing.Size(891, 736);
+            this.Host_TabControl.TabIndex = 4;
             // 
             // tabPage1
             // 
@@ -157,45 +163,46 @@
             this.groupBox3.Controls.Add(this.chart1);
             this.groupBox3.Location = new System.Drawing.Point(6, 142);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(759, 234);
+            this.groupBox3.Size = new System.Drawing.Size(894, 234);
             this.groupBox3.TabIndex = 11;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "CPU Usage";
             // 
             // chart1
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
+            chartArea3.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea3);
             this.chart1.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
+            legend3.Name = "Legend1";
+            this.chart1.Legends.Add(legend3);
             this.chart1.Location = new System.Drawing.Point(3, 16);
             this.chart1.Name = "chart1";
-            this.chart1.Size = new System.Drawing.Size(753, 215);
+            this.chart1.Size = new System.Drawing.Size(888, 215);
             this.chart1.TabIndex = 8;
             this.chart1.Text = "CPU Usage:";
             // 
             // groupBox2
             // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.chart2);
             this.groupBox2.Location = new System.Drawing.Point(8, 382);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(828, 227);
+            this.groupBox2.Size = new System.Drawing.Size(894, 227);
             this.groupBox2.TabIndex = 10;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Memory Usage";
             // 
             // chart2
             // 
-            this.chart2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            chartArea2.Name = "ChartArea1";
-            this.chart2.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.chart2.Legends.Add(legend2);
+            chartArea4.Name = "ChartArea1";
+            this.chart2.ChartAreas.Add(chartArea4);
+            this.chart2.Dock = System.Windows.Forms.DockStyle.Fill;
+            legend4.Name = "Legend1";
+            this.chart2.Legends.Add(legend4);
             this.chart2.Location = new System.Drawing.Point(3, 16);
             this.chart2.Name = "chart2";
-            this.chart2.Size = new System.Drawing.Size(822, 208);
+            this.chart2.Size = new System.Drawing.Size(888, 208);
             this.chart2.TabIndex = 9;
             this.chart2.Text = "chart2";
             // 
@@ -677,45 +684,64 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.label23);
+            this.tabPage3.Controls.Add(this.label22);
+            this.tabPage3.Controls.Add(this.button1);
             this.tabPage3.Controls.Add(this.Storage_Delete_Volume_btn);
             this.tabPage3.Controls.Add(this.Storage_Create_Volume_btn);
             this.tabPage3.Controls.Add(this.groupBox6);
-            this.tabPage3.Controls.Add(this.listView1);
-            this.tabPage3.Controls.Add(this.Delete_Storage_Pool_btn);
+            this.tabPage3.Controls.Add(this.Volume_ListView);
+            this.tabPage3.Controls.Add(this.Stop_Storage_Pool_btn);
             this.tabPage3.Controls.Add(this.Create_Storage_Pool_btn);
             this.tabPage3.Controls.Add(this.Pool_Listing);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(908, 678);
+            this.tabPage3.Size = new System.Drawing.Size(883, 710);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Storage";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(126, 5);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(47, 23);
+            this.button1.TabIndex = 7;
+            this.button1.Text = "Delete";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.Delete_Storage_Pool_btn_Click);
+            // 
             // Storage_Delete_Volume_btn
             // 
-            this.Storage_Delete_Volume_btn.Location = new System.Drawing.Point(303, 102);
+            this.Storage_Delete_Volume_btn.Enabled = false;
+            this.Storage_Delete_Volume_btn.Location = new System.Drawing.Point(784, 104);
             this.Storage_Delete_Volume_btn.Name = "Storage_Delete_Volume_btn";
-            this.Storage_Delete_Volume_btn.Size = new System.Drawing.Size(88, 23);
+            this.Storage_Delete_Volume_btn.Size = new System.Drawing.Size(90, 23);
             this.Storage_Delete_Volume_btn.TabIndex = 6;
             this.Storage_Delete_Volume_btn.Text = "Delete Volume";
             this.Storage_Delete_Volume_btn.UseVisualStyleBackColor = true;
+            this.Storage_Delete_Volume_btn.Click += new System.EventHandler(this.Storage_Delete_Volume_btn_Click);
             // 
             // Storage_Create_Volume_btn
             // 
-            this.Storage_Create_Volume_btn.Location = new System.Drawing.Point(186, 101);
+            this.Storage_Create_Volume_btn.Enabled = false;
+            this.Storage_Create_Volume_btn.Location = new System.Drawing.Point(665, 104);
             this.Storage_Create_Volume_btn.Name = "Storage_Create_Volume_btn";
-            this.Storage_Create_Volume_btn.Size = new System.Drawing.Size(111, 23);
+            this.Storage_Create_Volume_btn.Size = new System.Drawing.Size(113, 23);
             this.Storage_Create_Volume_btn.TabIndex = 5;
-            this.Storage_Create_Volume_btn.Text = "Create Volumne";
+            this.Storage_Create_Volume_btn.Text = "Create Volume";
             this.Storage_Create_Volume_btn.UseVisualStyleBackColor = true;
+            this.Storage_Create_Volume_btn.Click += new System.EventHandler(this.Storage_Create_Volume_btn_Click);
             // 
             // groupBox6
             // 
+            this.groupBox6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox6.Controls.Add(this.tableLayoutPanel5);
             this.groupBox6.Location = new System.Drawing.Point(186, 5);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(714, 90);
+            this.groupBox6.Size = new System.Drawing.Size(689, 94);
             this.groupBox6.TabIndex = 4;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Pool Details";
@@ -723,8 +749,8 @@
             // tableLayoutPanel5
             // 
             this.tableLayoutPanel5.ColumnCount = 2;
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12.25071F));
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 87.74929F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 18.06798F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 81.93202F));
             this.tableLayoutPanel5.Controls.Add(this.label17, 0, 0);
             this.tableLayoutPanel5.Controls.Add(this.label18, 0, 1);
             this.tableLayoutPanel5.Controls.Add(this.label19, 0, 2);
@@ -733,14 +759,18 @@
             this.tableLayoutPanel5.Controls.Add(this.Storage_Pool_Type_txt, 1, 1);
             this.tableLayoutPanel5.Controls.Add(this.Storage_Pool_Location_txt, 1, 2);
             this.tableLayoutPanel5.Controls.Add(this.Storage_Pool_State_txt, 1, 3);
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(6, 19);
+            this.tableLayoutPanel5.Controls.Add(this.label21, 0, 4);
+            this.tableLayoutPanel5.Controls.Add(this.Storage_AutoStart_ck, 1, 4);
+            this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(3, 16);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
-            this.tableLayoutPanel5.RowCount = 4;
+            this.tableLayoutPanel5.RowCount = 5;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(702, 59);
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(683, 75);
             this.tableLayoutPanel5.TabIndex = 0;
             // 
             // label17
@@ -782,7 +812,7 @@
             // Storage_Default_txt
             // 
             this.Storage_Default_txt.AutoSize = true;
-            this.Storage_Default_txt.Location = new System.Drawing.Point(88, 0);
+            this.Storage_Default_txt.Location = new System.Drawing.Point(126, 0);
             this.Storage_Default_txt.Name = "Storage_Default_txt";
             this.Storage_Default_txt.Size = new System.Drawing.Size(41, 13);
             this.Storage_Default_txt.TabIndex = 4;
@@ -791,7 +821,7 @@
             // Storage_Pool_Type_txt
             // 
             this.Storage_Pool_Type_txt.AutoSize = true;
-            this.Storage_Pool_Type_txt.Location = new System.Drawing.Point(88, 13);
+            this.Storage_Pool_Type_txt.Location = new System.Drawing.Point(126, 13);
             this.Storage_Pool_Type_txt.Name = "Storage_Pool_Type_txt";
             this.Storage_Pool_Type_txt.Size = new System.Drawing.Size(41, 13);
             this.Storage_Pool_Type_txt.TabIndex = 5;
@@ -800,7 +830,7 @@
             // Storage_Pool_Location_txt
             // 
             this.Storage_Pool_Location_txt.AutoSize = true;
-            this.Storage_Pool_Location_txt.Location = new System.Drawing.Point(88, 26);
+            this.Storage_Pool_Location_txt.Location = new System.Drawing.Point(126, 26);
             this.Storage_Pool_Location_txt.Name = "Storage_Pool_Location_txt";
             this.Storage_Pool_Location_txt.Size = new System.Drawing.Size(41, 13);
             this.Storage_Pool_Location_txt.TabIndex = 6;
@@ -809,28 +839,60 @@
             // Storage_Pool_State_txt
             // 
             this.Storage_Pool_State_txt.AutoSize = true;
-            this.Storage_Pool_State_txt.Location = new System.Drawing.Point(88, 39);
+            this.Storage_Pool_State_txt.Location = new System.Drawing.Point(126, 39);
             this.Storage_Pool_State_txt.Name = "Storage_Pool_State_txt";
             this.Storage_Pool_State_txt.Size = new System.Drawing.Size(41, 13);
             this.Storage_Pool_State_txt.TabIndex = 7;
             this.Storage_Pool_State_txt.Text = "label24";
             // 
-            // listView1
+            // label21
             // 
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(3, 52);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(54, 13);
+            this.label21.TabIndex = 8;
+            this.label21.Text = "AutoStart:";
+            // 
+            // Storage_AutoStart_ck
+            // 
+            this.Storage_AutoStart_ck.AutoSize = true;
+            this.Storage_AutoStart_ck.Location = new System.Drawing.Point(126, 55);
+            this.Storage_AutoStart_ck.Name = "Storage_AutoStart_ck";
+            this.Storage_AutoStart_ck.Size = new System.Drawing.Size(65, 17);
+            this.Storage_AutoStart_ck.TabIndex = 9;
+            this.Storage_AutoStart_ck.Text = "On Boot";
+            this.Storage_AutoStart_ck.UseVisualStyleBackColor = true;
+            // 
+            // Volume_ListView
+            // 
+            this.Volume_ListView.Activation = System.Windows.Forms.ItemActivation.OneClick;
+            this.Volume_ListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Volume_ListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.Sotrage_Column_Volume,
+            this.Storage_Column_Allocation,
             this.Sotrage_Column_Size,
             this.Sotrage_Column_Format,
             this.Sotrage_Column_Used_By});
-            this.listView1.Location = new System.Drawing.Point(186, 130);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(714, 540);
-            this.listView1.TabIndex = 3;
-            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.Volume_ListView.FullRowSelect = true;
+            this.Volume_ListView.Location = new System.Drawing.Point(186, 129);
+            this.Volume_ListView.Name = "Volume_ListView";
+            this.Volume_ListView.Size = new System.Drawing.Size(689, 574);
+            this.Volume_ListView.TabIndex = 3;
+            this.Volume_ListView.UseCompatibleStateImageBehavior = false;
+            this.Volume_ListView.View = System.Windows.Forms.View.Details;
+            this.Volume_ListView.SelectedIndexChanged += new System.EventHandler(this.Volume_ListView_SelectedIndexChanged);
             // 
             // Sotrage_Column_Volume
             // 
             this.Sotrage_Column_Volume.Text = "Volume";
+            this.Sotrage_Column_Volume.Width = 169;
+            // 
+            // Storage_Column_Allocation
+            // 
+            this.Storage_Column_Allocation.Text = "Allocated";
             // 
             // Sotrage_Column_Size
             // 
@@ -839,25 +901,29 @@
             // Sotrage_Column_Format
             // 
             this.Sotrage_Column_Format.Text = "Format";
+            this.Sotrage_Column_Format.Width = 98;
             // 
             // Sotrage_Column_Used_By
             // 
             this.Sotrage_Column_Used_By.Text = "Used By";
+            this.Sotrage_Column_Used_By.Width = 144;
             // 
-            // Delete_Storage_Pool_btn
+            // Stop_Storage_Pool_btn
             // 
-            this.Delete_Storage_Pool_btn.Location = new System.Drawing.Point(90, 5);
-            this.Delete_Storage_Pool_btn.Name = "Delete_Storage_Pool_btn";
-            this.Delete_Storage_Pool_btn.Size = new System.Drawing.Size(75, 23);
-            this.Delete_Storage_Pool_btn.TabIndex = 2;
-            this.Delete_Storage_Pool_btn.Text = "Delete";
-            this.Delete_Storage_Pool_btn.UseVisualStyleBackColor = true;
+            this.Stop_Storage_Pool_btn.Enabled = false;
+            this.Stop_Storage_Pool_btn.Location = new System.Drawing.Point(75, 5);
+            this.Stop_Storage_Pool_btn.Name = "Stop_Storage_Pool_btn";
+            this.Stop_Storage_Pool_btn.Size = new System.Drawing.Size(45, 23);
+            this.Stop_Storage_Pool_btn.TabIndex = 2;
+            this.Stop_Storage_Pool_btn.Text = "Stop";
+            this.Stop_Storage_Pool_btn.UseVisualStyleBackColor = true;
+            this.Stop_Storage_Pool_btn.Click += new System.EventHandler(this.Stop_Storage_Pool_btn_Click);
             // 
             // Create_Storage_Pool_btn
             // 
-            this.Create_Storage_Pool_btn.Location = new System.Drawing.Point(9, 4);
+            this.Create_Storage_Pool_btn.Location = new System.Drawing.Point(3, 4);
             this.Create_Storage_Pool_btn.Name = "Create_Storage_Pool_btn";
-            this.Create_Storage_Pool_btn.Size = new System.Drawing.Size(75, 23);
+            this.Create_Storage_Pool_btn.Size = new System.Drawing.Size(57, 23);
             this.Create_Storage_Pool_btn.TabIndex = 1;
             this.Create_Storage_Pool_btn.Text = "Create";
             this.Create_Storage_Pool_btn.UseVisualStyleBackColor = true;
@@ -865,10 +931,12 @@
             // 
             // Pool_Listing
             // 
+            this.Pool_Listing.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.Pool_Listing.FormattingEnabled = true;
-            this.Pool_Listing.Location = new System.Drawing.Point(8, 34);
+            this.Pool_Listing.Location = new System.Drawing.Point(8, 60);
             this.Pool_Listing.Name = "Pool_Listing";
-            this.Pool_Listing.Size = new System.Drawing.Size(172, 641);
+            this.Pool_Listing.Size = new System.Drawing.Size(172, 628);
             this.Pool_Listing.TabIndex = 0;
             this.Pool_Listing.SelectedIndexChanged += new System.EventHandler(this.Pool_Listing_SelectedIndexChanged);
             // 
@@ -882,15 +950,35 @@
             this.tabPage4.Text = "Network";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label22.Location = new System.Drawing.Point(8, 34);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(109, 20);
+            this.label22.TabIndex = 8;
+            this.label22.Text = "Storage Pools";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label23.Location = new System.Drawing.Point(192, 104);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(132, 20);
+            this.label23.TabIndex = 9;
+            this.label23.Text = "Storage Volumes";
+            // 
             // Connection_Details
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(916, 704);
-            this.Controls.Add(this.Overview);
+            this.ClientSize = new System.Drawing.Size(891, 736);
+            this.Controls.Add(this.Host_TabControl);
             this.Name = "Connection_Details";
             this.Text = "Host Details";
-            this.Overview.ResumeLayout(false);
+            this.Host_TabControl.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
@@ -910,6 +998,7 @@
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
             this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
             this.groupBox6.ResumeLayout(false);
             this.tableLayoutPanel5.ResumeLayout(false);
             this.tableLayoutPanel5.PerformLayout();
@@ -919,7 +1008,7 @@
 
         #endregion
 
-        private System.Windows.Forms.TabControl Overview;
+        private System.Windows.Forms.TabControl Host_TabControl;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.GroupBox groupBox1;
@@ -982,15 +1071,21 @@
         private System.Windows.Forms.Label Storage_Pool_Type_txt;
         private System.Windows.Forms.Label Storage_Pool_Location_txt;
         private System.Windows.Forms.Label Storage_Pool_State_txt;
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView Volume_ListView;
         private System.Windows.Forms.ColumnHeader Sotrage_Column_Volume;
         private System.Windows.Forms.ColumnHeader Sotrage_Column_Size;
         private System.Windows.Forms.ColumnHeader Sotrage_Column_Format;
         private System.Windows.Forms.ColumnHeader Sotrage_Column_Used_By;
-        private System.Windows.Forms.Button Delete_Storage_Pool_btn;
+        private System.Windows.Forms.Button Stop_Storage_Pool_btn;
         private System.Windows.Forms.Button Create_Storage_Pool_btn;
         private System.Windows.Forms.ListBox Pool_Listing;
         private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ColumnHeader Storage_Column_Allocation;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.CheckBox Storage_AutoStart_ck;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label label23;
 
     }
 }

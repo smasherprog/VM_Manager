@@ -12,7 +12,7 @@
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <NuGetPackageImportStamp>46fe16ff</NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>8bf35fa4</NuGetPackageImportStamp>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
   </PropertyGroup>
@@ -81,7 +81,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Libvirt_Pinvoke, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Libvirt_Pinvoke.1.2.17.07\lib\net20\Libvirt_Pinvoke.dll</HintPath>
+      <HintPath>..\packages\Libvirt_Pinvoke.1.2.17.08\lib\net20\Libvirt_Pinvoke.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -94,10 +94,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Add_Storage_Pool.cs">
+    <Compile Include="Storage\Add_Storage_Pool.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Add_Storage_Pool.Designer.cs">
+    <Compile Include="Storage\Add_Storage_Pool.Designer.cs">
       <DependentUpon>Add_Storage_Pool.cs</DependentUpon>
     </Compile>
     <Compile Include="Host_List.cs">
@@ -114,8 +114,27 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Storage\Add_Storage_Volume.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Storage\Add_Storage_Volume.Designer.cs">
+      <DependentUpon>Add_Storage_Volume.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Storage\Create_First_Step.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Storage\Create_First_Step.Designer.cs">
+      <DependentUpon>Create_First_Step.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Storage\Dir_Control.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Storage\Dir_Control.Designer.cs">
+      <DependentUpon>Dir_Control.cs</DependentUpon>
+    </Compile>
     <Compile Include="Utilities\Formatting.cs" />
-    <EmbeddedResource Include="Add_Storage_Pool.resx">
+    <Compile Include="Utilities\MultiStepBase.cs" />
+    <EmbeddedResource Include="Storage\Add_Storage_Pool.resx">
       <DependentUpon>Add_Storage_Pool.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Host_List.resx">
@@ -134,6 +153,15 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Storage\Add_Storage_Volume.resx">
+      <DependentUpon>Add_Storage_Volume.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Storage\Create_First_Step.resx">
+      <DependentUpon>Create_First_Step.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Storage\Dir_Control.resx">
+      <DependentUpon>Dir_Control.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
@@ -206,12 +234,12 @@
     <Content Include="x86\zlib1.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\packages\Libvirt_Pinvoke.1.2.17.07\build\Libvirt_Pinvoke.targets" Condition="Exists('..\packages\Libvirt_Pinvoke.1.2.17.07\build\Libvirt_Pinvoke.targets')" />
+  <Import Project="..\packages\Libvirt_Pinvoke.1.2.17.08\build\Libvirt_Pinvoke.targets" Condition="Exists('..\packages\Libvirt_Pinvoke.1.2.17.08\build\Libvirt_Pinvoke.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Libvirt_Pinvoke.1.2.17.07\build\Libvirt_Pinvoke.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Libvirt_Pinvoke.1.2.17.07\build\Libvirt_Pinvoke.targets'))" />
+    <Error Condition="!Exists('..\packages\Libvirt_Pinvoke.1.2.17.08\build\Libvirt_Pinvoke.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Libvirt_Pinvoke.1.2.17.08\build\Libvirt_Pinvoke.targets'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

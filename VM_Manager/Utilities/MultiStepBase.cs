@@ -1,19 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace VM_Manager
+namespace VM_Manager.Utilities
 {
-    public partial class Add_Storage_Pool : Form
+    public interface MultiStepBase
     {
-        public Add_Storage_Pool()
-        {
-            InitializeComponent();
-        }
+        bool Execute();
+        bool Validate_Control();
+        UserControl Next();
     }
 }
