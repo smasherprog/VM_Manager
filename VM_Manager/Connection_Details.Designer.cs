@@ -83,6 +83,8 @@
             this.VirtualNetworkState = new System.Windows.Forms.Label();
             this.Network_Interfaces = new System.Windows.Forms.ListBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.Storage_Delete_Volume_btn = new System.Windows.Forms.Button();
             this.Storage_Create_Volume_btn = new System.Windows.Forms.Button();
@@ -108,8 +110,12 @@
             this.Create_Storage_Pool_btn = new System.Windows.Forms.Button();
             this.Pool_Listing = new System.Windows.Forms.ListBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.label22 = new System.Windows.Forms.Label();
-            this.label23 = new System.Windows.Forms.Label();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.button2 = new System.Windows.Forms.Button();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.Create_VM_btn = new System.Windows.Forms.Button();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
             this.Host_TabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -128,6 +134,8 @@
             this.tabPage3.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
+            this.tabPage4.SuspendLayout();
+            this.tabPage5.SuspendLayout();
             this.SuspendLayout();
             // 
             // Host_TabControl
@@ -136,6 +144,7 @@
             this.Host_TabControl.Controls.Add(this.tabPage2);
             this.Host_TabControl.Controls.Add(this.tabPage3);
             this.Host_TabControl.Controls.Add(this.tabPage4);
+            this.Host_TabControl.Controls.Add(this.tabPage5);
             this.Host_TabControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Host_TabControl.Location = new System.Drawing.Point(0, 0);
             this.Host_TabControl.Name = "Host_TabControl";
@@ -151,7 +160,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(908, 678);
+            this.tabPage1.Size = new System.Drawing.Size(883, 710);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Overview";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -443,7 +452,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(908, 678);
+            this.tabPage2.Size = new System.Drawing.Size(883, 710);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Virtual Networks";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -702,6 +711,26 @@
             this.tabPage3.Text = "Storage";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label23.Location = new System.Drawing.Point(192, 104);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(132, 20);
+            this.label23.TabIndex = 9;
+            this.label23.Text = "Storage Volumes";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label22.Location = new System.Drawing.Point(8, 34);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(109, 20);
+            this.label22.TabIndex = 8;
+            this.label22.Text = "Storage Pools";
+            // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(126, 5);
@@ -942,33 +971,76 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.label25);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(908, 678);
+            this.tabPage4.Size = new System.Drawing.Size(883, 710);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Network";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
-            // label22
+            // tabPage5
             // 
-            this.label22.AutoSize = true;
-            this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label22.Location = new System.Drawing.Point(8, 34);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(109, 20);
-            this.label22.TabIndex = 8;
-            this.label22.Text = "Storage Pools";
+            this.tabPage5.Controls.Add(this.label24);
+            this.tabPage5.Controls.Add(this.Create_VM_btn);
+            this.tabPage5.Controls.Add(this.listBox1);
+            this.tabPage5.Controls.Add(this.button2);
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(883, 710);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "VMs";
+            this.tabPage5.UseVisualStyleBackColor = true;
             // 
-            // label23
+            // button2
             // 
-            this.label23.AutoSize = true;
-            this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label23.Location = new System.Drawing.Point(192, 104);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(132, 20);
-            this.label23.TabIndex = 9;
-            this.label23.Text = "Storage Volumes";
+            this.button2.Location = new System.Drawing.Point(9, 7);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 0;
+            this.button2.Text = "Test Create";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.Location = new System.Drawing.Point(9, 37);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(295, 654);
+            this.listBox1.TabIndex = 1;
+            // 
+            // Create_VM_btn
+            // 
+            this.Create_VM_btn.Location = new System.Drawing.Point(91, 7);
+            this.Create_VM_btn.Name = "Create_VM_btn";
+            this.Create_VM_btn.Size = new System.Drawing.Size(75, 23);
+            this.Create_VM_btn.TabIndex = 2;
+            this.Create_VM_btn.Text = "Create";
+            this.Create_VM_btn.UseVisualStyleBackColor = true;
+            this.Create_VM_btn.Click += new System.EventHandler(this.Create_VM_btn_Click);
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label24.Location = new System.Drawing.Point(359, 168);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(364, 25);
+            this.label24.TabIndex = 3;
+            this.label24.Text = "THIS TAB IS WORK IN PROGRESS!!";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label25.Location = new System.Drawing.Point(259, 343);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(364, 25);
+            this.label25.TabIndex = 4;
+            this.label25.Text = "THIS TAB IS WORK IN PROGRESS!!";
             // 
             // Connection_Details
             // 
@@ -1002,6 +1074,10 @@
             this.groupBox6.ResumeLayout(false);
             this.tableLayoutPanel5.ResumeLayout(false);
             this.tableLayoutPanel5.PerformLayout();
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
+            this.tabPage5.ResumeLayout(false);
+            this.tabPage5.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1086,6 +1162,12 @@
         private System.Windows.Forms.CheckBox Storage_AutoStart_ck;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button Create_VM_btn;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label label24;
 
     }
 }

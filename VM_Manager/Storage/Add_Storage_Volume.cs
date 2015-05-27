@@ -89,7 +89,7 @@ namespace VM_Manager.Storage
                     MessageBox.Show("Successfully created Volume!");
                     if(comboBox1.SelectedItem.ToString() == "iso")
                     {
-                        using(var st = Libvirt.API.virStreamNew(_connectionptr, Libvirt.virStreamFlags.VIR_STREAM_BLOCK))
+                        using(var st = Libvirt.API.virStreamNew(_connectionptr, Libvirt.virStreamFlags.VIR_STREAM_NONBLOCK))
                         {
                             using(var localfs = new System.IO.FileStream(iso_filepath_txt.Text, System.IO.FileMode.Open, System.IO.FileAccess.Read))
                             {
@@ -103,9 +103,9 @@ namespace VM_Manager.Storage
                                     {
                                         bytestoread = totalbytes;
                                     }
-                                    var bread = localfs.Read(dat, 0, (int)bytestoread);
-                                    UIntPtr size = new UIntPtr((uint)bread);
-                                    Libvirt.API.virStreamSend(st, dat, size);
+                                    var bread = (uint)localfs.Read(dat, 0, (int)bytestoread);
+                                    var bytessent= Libvirt.API.virStreamSend(st, dat, bread);
+                                    Debug.WriteLine("bytes readyfomdisk " + bread + "   bytes sent " + bytessent);
                                     totalbytes -= bread;
                                 }
 

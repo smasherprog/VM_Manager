@@ -64,41 +64,12 @@ namespace VM_Manager
 
             if(_connection.Pointer != IntPtr.Zero)
             {
-                button1.Enabled = true;
-                Console.WriteLine("Connected!");
+                var f = new Connection_Details(_connection);
+                f.Show();
             } else
             {
-                button1.Enabled = false;
                 Console.WriteLine("Unable to connect!");
             }
-
-            string[] names;
-
-            Libvirt.API.virConnectListDefinedDomains(_connection, out names, 10);
-            foreach(var item in names)
-            {
-                Console.WriteLine(item);
-            }
-            int[] domainids;
-            Libvirt.API.virConnectListDomains(_connection, out domainids, 10);
-            foreach(var item in domainids)
-            {
-                using(var domainptr = Libvirt.API.virDomainLookupByID(_connection, item))
-                {
-                    if(domainptr.Pointer != IntPtr.Zero)
-                    {
-                        string domainName = Libvirt.API.virDomainGetName(domainptr);
-                        Console.WriteLine("Domain Name: '" + domainName + "', ID: " + item);
-                    }
-                }
-            }
         }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            var f = new Connection_Details(_connection);
-            f.Show();
-        }
-
     }
 }

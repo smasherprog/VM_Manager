@@ -94,6 +94,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain\Add_Domain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Domain\Add_Domain.Designer.cs">
+      <DependentUpon>Add_Domain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\Create_First_Step.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Domain\Create_First_Step.Designer.cs">
+      <DependentUpon>Create_First_Step.cs</DependentUpon>
+    </Compile>
     <Compile Include="Storage\Add_Storage_Pool.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -132,8 +144,15 @@
     <Compile Include="Storage\Dir_Control.Designer.cs">
       <DependentUpon>Dir_Control.cs</DependentUpon>
     </Compile>
+    <Compile Include="Utilities\Console.cs" />
     <Compile Include="Utilities\Formatting.cs" />
     <Compile Include="Utilities\MultiStepBase.cs" />
+    <EmbeddedResource Include="Domain\Add_Domain.resx">
+      <DependentUpon>Add_Domain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Domain\Create_First_Step.resx">
+      <DependentUpon>Create_First_Step.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Storage\Add_Storage_Pool.resx">
       <DependentUpon>Add_Storage_Pool.cs</DependentUpon>
     </EmbeddedResource>

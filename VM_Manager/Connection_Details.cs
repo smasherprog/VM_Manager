@@ -5,6 +5,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 
@@ -16,18 +17,22 @@ namespace VM_Manager
         private System.Threading.Thread _pollthread = null;
         private bool _keep_polling = true;
         private Int64 Counter = 0;
+        private Libvirt.virErrorFunc _Global_ErrorHandler;//this is needed otherwise the GC reclaims it
         public Connection_Details(Libvirt.virConnectPtr connection)
         {
             InitializeComponent();
 
             _connection = connection;
-
+            _Global_ErrorHandler = virErrorFunc;
+            Libvirt.API.virConnSetErrorFunc(_connection, IntPtr.Zero, _Global_ErrorHandler);
             _pollthread = new System.Threading.Thread(UpdateStats);
             _pollthread.Start();
             this.FormClosing += Connection_Details_FormClosing;
+            
 
             Host_TabControl.SelectedIndexChanged += Host_TabControl_SelectedIndexChanged;
             FIllGeneralInfo();
+
         }
 
         void Host_TabControl_SelectedIndexChanged(object sender, EventArgs e)
@@ -36,6 +41,12 @@ namespace VM_Manager
             {//storage tab
                 UpdateStorageTab();
             }
+        }
+
+        void virErrorFunc(IntPtr userData, Libvirt.virErrorPtr error)
+        {
+            var realerror = Libvirt.API.MarshalErrorPtr(error);
+            Debug.WriteLine(realerror.message);
         }
 
         void Connection_Details_FormClosing(object sender, FormClosingEventArgs e)
@@ -282,6 +293,25 @@ namespace VM_Manager
                     }
                 }
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            ///TEEST VM CREATION!!
+            string test ="<domain type='qemu'><name>QEmu-fedora-i686</name><memory unit='G'>1</memory><vcpu>1</vcpu><os><type arch='i686' machine='pc'>hvm</type><boot dev='cdrom'/>";
+            test +="</os><devices><disk type='file' device='cdrom'><source file='/home/scott/Downloads/mini.iso'/><target dev='hdc'/><readonly/></disk>";
+            test += "<disk type='file' device='disk'><source file='/otherstuff/testing.img'/><target dev='hda'/></disk><interface type='network'><source network='default'/></interface><graphics type='vnc' port='-1'/></devices></domain>";
+            var domainout = Libvirt.API.virDomainDefineXML(_connection, test);
+            if(domainout.Pointer != IntPtr.Zero)
+            {
+                Libvirt.API.virDomainCreate(domainout);
+            }
+        }
+
+        private void Create_VM_btn_Click(object sender, EventArgs e)
+        {
+            var f = new VM_Manager.Domain.Add_Domain(_connection);
+            f.ShowDialog();
         }
     }
 }
