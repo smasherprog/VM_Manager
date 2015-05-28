@@ -62,7 +62,6 @@ namespace VM_Manager.Storage
             var alloctype = comboBox1.SelectedItem.ToString();
             if(comboBox1.SelectedItem.ToString() == "iso")
             {
-                ////ISO NOT DONE YET....
                 finalname = textBox1.Text + ".iso";
                 alloctype = "raw";
                 try
@@ -86,32 +85,16 @@ namespace VM_Manager.Storage
             {
                 if(storagevol.Pointer != IntPtr.Zero)
                 {
-                    MessageBox.Show("Successfully created Volume!");
+                  
                     if(comboBox1.SelectedItem.ToString() == "iso")
                     {
-                        using(var st = Libvirt.API.virStreamNew(_connectionptr, Libvirt.virStreamFlags.VIR_STREAM_NONBLOCK))
-                        {
-                            using(var localfs = new System.IO.FileStream(iso_filepath_txt.Text, System.IO.FileMode.Open, System.IO.FileAccess.Read))
-                            {
-                                long chunksize = 65000;
-                                var dat = new byte[chunksize];
-                                var totalbytes = localfs.Length;
-                                while(totalbytes > 0)
-                                {
-                                    var bytestoread = chunksize;
-                                    if(totalbytes < bytestoread)
-                                    {
-                                        bytestoread = totalbytes;
-                                    }
-                                    var bread = (uint)localfs.Read(dat, 0, (int)bytestoread);
-                                    var bytessent= Libvirt.API.virStreamSend(st, dat, bread);
-                                    Debug.WriteLine("bytes readyfomdisk " + bread + "   bytes sent " + bytessent);
-                                    totalbytes -= bread;
-                                }
-
-                                Libvirt.API.virStreamFinish(st);
-                            }
-                        }
+                        var uploaddiag = new Upload_Progress(_connectionptr, storagevol, iso_filepath_txt.Text);
+                        uploaddiag.Start();
+                        uploaddiag.ShowDialog();
+                        MessageBox.Show("Successfully uploaded the ISO and created the Volume!");
+                    } else
+                    {
+                        MessageBox.Show("Successfully created Volume!");
                     }
                     this.Close();
                 } else
@@ -120,7 +103,6 @@ namespace VM_Manager.Storage
                 }
             }
         }
-        //NEEED TO FIX OVERFLOW ERROR BELOW FOR FILES LARGER THAN 32 bits
         private int Read_CB(Libvirt.virStreamPtr st, IntPtr data, uint nbytes, IntPtr @opaque)
         {
             return 0;

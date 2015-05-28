@@ -12,7 +12,7 @@
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <NuGetPackageImportStamp>8bf35fa4</NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>812e37c7</NuGetPackageImportStamp>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
   </PropertyGroup>
@@ -81,7 +81,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Libvirt_Pinvoke, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Libvirt_Pinvoke.1.2.17.08\lib\net20\Libvirt_Pinvoke.dll</HintPath>
+      <HintPath>..\packages\Libvirt_Pinvoke.1.2.17.09\lib\net20\Libvirt_Pinvoke.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -100,12 +100,38 @@
     <Compile Include="Domain\Add_Domain.Designer.cs">
       <DependentUpon>Add_Domain.cs</DependentUpon>
     </Compile>
+    <Compile Include="Domain\API\Service.cs" />
+    <Compile Include="Domain\Cpu_Ram_Create.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Domain\Cpu_Ram_Create.Designer.cs">
+      <DependentUpon>Cpu_Ram_Create.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\List_Virtual_Machines.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Domain\List_Virtual_Machines.Designer.cs">
+      <DependentUpon>List_Virtual_Machines.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\Storage_Create.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Domain\Storage_Create.Designer.cs">
+      <DependentUpon>Storage_Create.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\Local_Media_Create.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Domain\Local_Media_Create.Designer.cs">
+      <DependentUpon>Local_Media_Create.cs</DependentUpon>
+    </Compile>
     <Compile Include="Domain\Create_First_Step.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Domain\Create_First_Step.Designer.cs">
       <DependentUpon>Create_First_Step.cs</DependentUpon>
     </Compile>
+    <Compile Include="Domain\Model\Virtual_Machine.cs" />
     <Compile Include="Storage\Add_Storage_Pool.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -144,11 +170,29 @@
     <Compile Include="Storage\Dir_Control.Designer.cs">
       <DependentUpon>Dir_Control.cs</DependentUpon>
     </Compile>
+    <Compile Include="Storage\Upload_Progress.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Storage\Upload_Progress.Designer.cs">
+      <DependentUpon>Upload_Progress.cs</DependentUpon>
+    </Compile>
     <Compile Include="Utilities\Console.cs" />
     <Compile Include="Utilities\Formatting.cs" />
     <Compile Include="Utilities\MultiStepBase.cs" />
     <EmbeddedResource Include="Domain\Add_Domain.resx">
       <DependentUpon>Add_Domain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Domain\Cpu_Ram_Create.resx">
+      <DependentUpon>Cpu_Ram_Create.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Domain\List_Virtual_Machines.resx">
+      <DependentUpon>List_Virtual_Machines.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Domain\Storage_Create.resx">
+      <DependentUpon>Storage_Create.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Domain\Local_Media_Create.resx">
+      <DependentUpon>Local_Media_Create.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Domain\Create_First_Step.resx">
       <DependentUpon>Create_First_Step.cs</DependentUpon>
@@ -180,6 +224,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Storage\Dir_Control.resx">
       <DependentUpon>Dir_Control.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Storage\Upload_Progress.resx">
+      <DependentUpon>Upload_Progress.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config">
       <SubType>Designer</SubType>
@@ -253,12 +300,12 @@
     <Content Include="x86\zlib1.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\packages\Libvirt_Pinvoke.1.2.17.08\build\Libvirt_Pinvoke.targets" Condition="Exists('..\packages\Libvirt_Pinvoke.1.2.17.08\build\Libvirt_Pinvoke.targets')" />
+  <Import Project="..\packages\Libvirt_Pinvoke.1.2.17.09\build\Libvirt_Pinvoke.targets" Condition="Exists('..\packages\Libvirt_Pinvoke.1.2.17.09\build\Libvirt_Pinvoke.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Libvirt_Pinvoke.1.2.17.08\build\Libvirt_Pinvoke.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Libvirt_Pinvoke.1.2.17.08\build\Libvirt_Pinvoke.targets'))" />
+    <Error Condition="!Exists('..\packages\Libvirt_Pinvoke.1.2.17.09\build\Libvirt_Pinvoke.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Libvirt_Pinvoke.1.2.17.09\build\Libvirt_Pinvoke.targets'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

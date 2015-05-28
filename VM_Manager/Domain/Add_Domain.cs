@@ -14,11 +14,12 @@ namespace VM_Manager.Domain
         
         private Libvirt.virConnectPtr _connection;
         private UserControl _CurrentControl;
+        private int Page = 1;
         public Add_Domain(Libvirt.virConnectPtr con)
         {
             InitializeComponent();
             _connection = con;
-            _CurrentControl = new Create_First_Step(_connection);
+            _CurrentControl = new Create_First_Step(_connection, new Model.Virtual_Machine());
             panel1.Controls.Add(_CurrentControl);
         }
 
@@ -30,10 +31,14 @@ namespace VM_Manager.Domain
                 if(contr.Execute())
                 {
                     var next = contr.Next();
-                    this.button1.Text = "Finish";
+          
                     panel1.Controls.Remove(_CurrentControl);
                     if(next != null)
                     {
+                        Page += 1;
+                        Step_txt.Text = "Step " + Page.ToString() + " of 5";
+                        if(Page >= 5)
+                            this.button1.Text = "Finish";
                         _CurrentControl = next;
                         panel1.Controls.Add(_CurrentControl);
                     } else

@@ -26,7 +26,13 @@ namespace VM_Manager
 
         void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            _connection.Dispose();
+            try
+            {
+                _connection.Dispose();
+            } catch(Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
         }
 
         private int virConnectAuthCallback(ref Libvirt._virConnectCredential[] cred, uint ncred, IntPtr cbdata)

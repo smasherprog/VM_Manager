@@ -28,7 +28,7 @@ namespace VM_Manager
             _pollthread = new System.Threading.Thread(UpdateStats);
             _pollthread.Start();
             this.FormClosing += Connection_Details_FormClosing;
-            
+
 
             Host_TabControl.SelectedIndexChanged += Host_TabControl_SelectedIndexChanged;
             FIllGeneralInfo();
@@ -40,7 +40,14 @@ namespace VM_Manager
             if(Host_TabControl.SelectedIndex == 2)
             {//storage tab
                 UpdateStorageTab();
+            } else if(Host_TabControl.SelectedIndex == 4)
+            {
+                VM_List_panel.Controls.Add(new Domain.List_Virtual_Machines(_connection));
+            } else
+            {
+                VM_List_panel.Controls.Clear();
             }
+
         }
 
         void virErrorFunc(IntPtr userData, Libvirt.virErrorPtr error)
@@ -103,53 +110,53 @@ namespace VM_Manager
         }
         void UpdateStats()
         {
-            if(!_keep_polling)
-                return;
-            try
+            while(_keep_polling)
             {
-                Counter += 1;
-                Libvirt._virNodeCPUStats[] cpustats = null;
-                Libvirt.API.virNodeGetCPUStats(_connection, -1, out cpustats, 0);
-                Libvirt._virNodeMemoryStats[] memstats = null;
-                Libvirt.API.virNodeGetMemoryStats(_connection, -1, out memstats, 0);
-
-                chart1.Invoke((MethodInvoker)delegate
+                try
                 {
+                    Counter += 1;
+                    Libvirt._virNodeCPUStats[] cpustats = null;
+                    Libvirt.API.virNodeGetCPUStats(_connection, -1, out cpustats, 0);
+                    Libvirt._virNodeMemoryStats[] memstats = null;
+                    Libvirt.API.virNodeGetMemoryStats(_connection, -1, out memstats, 0);
 
-                    foreach(var item in cpustats)
+                    chart1.Invoke((MethodInvoker)delegate
                     {
-                        if(!chart1.Series.Any(a => a.Name == item.field))
+
+                        foreach(var item in cpustats)
                         {
-                            var series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-                            series1.ChartArea = "ChartArea1";
-                            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-                            series1.Legend = "Legend1";
-                            series1.Name = item.field;
-                            chart1.Series.Add(series1);
+                            if(!chart1.Series.Any(a => a.Name == item.field))
+                            {
+                                var series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+                                series1.ChartArea = "ChartArea1";
+                                series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+                                series1.Legend = "Legend1";
+                                series1.Name = item.field;
+
+                                chart1.Series.Add(series1);
+                            }
+                            chart1.Series[item.field].Points.AddXY(Counter, item.value);
                         }
-                        chart1.Series[item.field].Points.AddXY(Counter, item.value);
-                    }
-                    foreach(var item in memstats)
-                    {
-                        if(!chart2.Series.Any(a => a.Name == item.field))
+                        foreach(var item in memstats)
                         {
-                            var series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-                            series1.ChartArea = "ChartArea1";
-                            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Area;
-                            series1.Legend = "Legend1";
-                            series1.Name = item.field;
-                            chart2.Series.Add(series1);
+                            if(!chart2.Series.Any(a => a.Name == item.field))
+                            {
+                                var series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+                                series1.ChartArea = "ChartArea1";
+                                series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Area;
+                                series1.Legend = "Legend1";
+                                series1.Name = item.field;
+                                chart2.Series.Add(series1);
+                            }
+                            chart2.Series[item.field].Points.AddXY(Counter, item.value);
                         }
-                        chart2.Series[item.field].Points.AddXY(Counter, item.value);
-                    }
-                });
-            } catch(Exception e)
-            {
-                Console.WriteLine(e.Message);
+                    });
+                } catch(Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+                System.Threading.Thread.Sleep(1000);
             }
-            System.Threading.Thread.Sleep(1000);
-            UpdateStats();
-
         }
 
 
@@ -295,18 +302,6 @@ namespace VM_Manager
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            ///TEEST VM CREATION!!
-            string test ="<domain type='qemu'><name>QEmu-fedora-i686</name><memory unit='G'>1</memory><vcpu>1</vcpu><os><type arch='i686' machine='pc'>hvm</type><boot dev='cdrom'/>";
-            test +="</os><devices><disk type='file' device='cdrom'><source file='/home/scott/Downloads/mini.iso'/><target dev='hdc'/><readonly/></disk>";
-            test += "<disk type='file' device='disk'><source file='/otherstuff/testing.img'/><target dev='hda'/></disk><interface type='network'><source network='default'/></interface><graphics type='vnc' port='-1'/></devices></domain>";
-            var domainout = Libvirt.API.virDomainDefineXML(_connection, test);
-            if(domainout.Pointer != IntPtr.Zero)
-            {
-                Libvirt.API.virDomainCreate(domainout);
-            }
-        }
 
         private void Create_VM_btn_Click(object sender, EventArgs e)
         {

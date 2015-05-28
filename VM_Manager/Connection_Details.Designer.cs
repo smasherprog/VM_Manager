@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.Host_TabControl = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -110,12 +110,10 @@
             this.Create_Storage_Pool_btn = new System.Windows.Forms.Button();
             this.Pool_Listing = new System.Windows.Forms.ListBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.button2 = new System.Windows.Forms.Button();
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.Create_VM_btn = new System.Windows.Forms.Button();
-            this.label24 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.Create_VM_btn = new System.Windows.Forms.Button();
+            this.VM_List_panel = new System.Windows.Forms.Panel();
             this.Host_TabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -179,11 +177,11 @@
             // 
             // chart1
             // 
-            chartArea3.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea3);
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
             this.chart1.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend3.Name = "Legend1";
-            this.chart1.Legends.Add(legend3);
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
             this.chart1.Location = new System.Drawing.Point(3, 16);
             this.chart1.Name = "chart1";
             this.chart1.Size = new System.Drawing.Size(888, 215);
@@ -204,11 +202,11 @@
             // 
             // chart2
             // 
-            chartArea4.Name = "ChartArea1";
-            this.chart2.ChartAreas.Add(chartArea4);
+            chartArea2.Name = "ChartArea1";
+            this.chart2.ChartAreas.Add(chartArea2);
             this.chart2.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend4.Name = "Legend1";
-            this.chart2.Legends.Add(legend4);
+            legend2.Name = "Legend1";
+            this.chart2.Legends.Add(legend2);
             this.chart2.Location = new System.Drawing.Point(3, 16);
             this.chart2.Name = "chart2";
             this.chart2.Size = new System.Drawing.Size(888, 208);
@@ -980,58 +978,6 @@
             this.tabPage4.Text = "Network";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
-            // tabPage5
-            // 
-            this.tabPage5.Controls.Add(this.label24);
-            this.tabPage5.Controls.Add(this.Create_VM_btn);
-            this.tabPage5.Controls.Add(this.listBox1);
-            this.tabPage5.Controls.Add(this.button2);
-            this.tabPage5.Location = new System.Drawing.Point(4, 22);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(883, 710);
-            this.tabPage5.TabIndex = 4;
-            this.tabPage5.Text = "VMs";
-            this.tabPage5.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(9, 7);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 0;
-            this.button2.Text = "Test Create";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // listBox1
-            // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(9, 37);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(295, 654);
-            this.listBox1.TabIndex = 1;
-            // 
-            // Create_VM_btn
-            // 
-            this.Create_VM_btn.Location = new System.Drawing.Point(91, 7);
-            this.Create_VM_btn.Name = "Create_VM_btn";
-            this.Create_VM_btn.Size = new System.Drawing.Size(75, 23);
-            this.Create_VM_btn.TabIndex = 2;
-            this.Create_VM_btn.Text = "Create";
-            this.Create_VM_btn.UseVisualStyleBackColor = true;
-            this.Create_VM_btn.Click += new System.EventHandler(this.Create_VM_btn_Click);
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label24.Location = new System.Drawing.Point(359, 168);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(364, 25);
-            this.label24.TabIndex = 3;
-            this.label24.Text = "THIS TAB IS WORK IN PROGRESS!!";
-            // 
             // label25
             // 
             this.label25.AutoSize = true;
@@ -1041,6 +987,38 @@
             this.label25.Size = new System.Drawing.Size(364, 25);
             this.label25.TabIndex = 4;
             this.label25.Text = "THIS TAB IS WORK IN PROGRESS!!";
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.Controls.Add(this.VM_List_panel);
+            this.tabPage5.Controls.Add(this.Create_VM_btn);
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(883, 710);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "VMs";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // Create_VM_btn
+            // 
+            this.Create_VM_btn.Location = new System.Drawing.Point(9, 6);
+            this.Create_VM_btn.Name = "Create_VM_btn";
+            this.Create_VM_btn.Size = new System.Drawing.Size(75, 23);
+            this.Create_VM_btn.TabIndex = 2;
+            this.Create_VM_btn.Text = "Create";
+            this.Create_VM_btn.UseVisualStyleBackColor = true;
+            this.Create_VM_btn.Click += new System.EventHandler(this.Create_VM_btn_Click);
+            // 
+            // VM_List_panel
+            // 
+            this.VM_List_panel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.VM_List_panel.Location = new System.Drawing.Point(9, 36);
+            this.VM_List_panel.Name = "VM_List_panel";
+            this.VM_List_panel.Size = new System.Drawing.Size(866, 668);
+            this.VM_List_panel.TabIndex = 3;
             // 
             // Connection_Details
             // 
@@ -1077,7 +1055,6 @@
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
             this.tabPage5.ResumeLayout(false);
-            this.tabPage5.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1163,11 +1140,9 @@
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.TabPage tabPage5;
-        private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button Create_VM_btn;
         private System.Windows.Forms.Label label25;
-        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Panel VM_List_panel;
 
     }
 }

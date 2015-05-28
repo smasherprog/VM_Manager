@@ -32,10 +32,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
-            this.radioButton4 = new System.Windows.Forms.RadioButton();
+            this.Local_Install = new System.Windows.Forms.RadioButton();
+            this.Network_Install = new System.Windows.Forms.RadioButton();
+            this.PXE_Install = new System.Windows.Forms.RadioButton();
+            this.Import_Disk_Install = new System.Windows.Forms.RadioButton();
             this.SuspendLayout();
             // 
             // label2
@@ -73,59 +73,59 @@
             this.textBox2.Size = new System.Drawing.Size(268, 20);
             this.textBox2.TabIndex = 8;
             // 
-            // radioButton1
+            // Local_Install
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Checked = true;
-            this.radioButton1.Location = new System.Drawing.Point(67, 69);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(224, 17);
-            this.radioButton1.TabIndex = 9;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Local install media (ISO image or CDROM)";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.Local_Install.AutoSize = true;
+            this.Local_Install.Checked = true;
+            this.Local_Install.Location = new System.Drawing.Point(67, 69);
+            this.Local_Install.Name = "Local_Install";
+            this.Local_Install.Size = new System.Drawing.Size(224, 17);
+            this.Local_Install.TabIndex = 9;
+            this.Local_Install.TabStop = true;
+            this.Local_Install.Text = "Local install media (ISO image or CDROM)";
+            this.Local_Install.UseVisualStyleBackColor = true;
             // 
-            // radioButton2
+            // Network_Install
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(67, 92);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(198, 17);
-            this.radioButton2.TabIndex = 10;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "Network Install (HTTP, FTP, or NFS)";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.Network_Install.AutoSize = true;
+            this.Network_Install.Location = new System.Drawing.Point(67, 92);
+            this.Network_Install.Name = "Network_Install";
+            this.Network_Install.Size = new System.Drawing.Size(198, 17);
+            this.Network_Install.TabIndex = 10;
+            this.Network_Install.TabStop = true;
+            this.Network_Install.Text = "Network Install (HTTP, FTP, or NFS)";
+            this.Network_Install.UseVisualStyleBackColor = true;
             // 
-            // radioButton3
+            // PXE_Install
             // 
-            this.radioButton3.AutoSize = true;
-            this.radioButton3.Location = new System.Drawing.Point(67, 115);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(120, 17);
-            this.radioButton3.TabIndex = 11;
-            this.radioButton3.TabStop = true;
-            this.radioButton3.Text = "Network Boot (PXE)";
-            this.radioButton3.UseVisualStyleBackColor = true;
+            this.PXE_Install.AutoSize = true;
+            this.PXE_Install.Location = new System.Drawing.Point(67, 115);
+            this.PXE_Install.Name = "PXE_Install";
+            this.PXE_Install.Size = new System.Drawing.Size(120, 17);
+            this.PXE_Install.TabIndex = 11;
+            this.PXE_Install.TabStop = true;
+            this.PXE_Install.Text = "Network Boot (PXE)";
+            this.PXE_Install.UseVisualStyleBackColor = true;
             // 
-            // radioButton4
+            // Import_Disk_Install
             // 
-            this.radioButton4.AutoSize = true;
-            this.radioButton4.Location = new System.Drawing.Point(67, 138);
-            this.radioButton4.Name = "radioButton4";
-            this.radioButton4.Size = new System.Drawing.Size(147, 17);
-            this.radioButton4.TabIndex = 12;
-            this.radioButton4.TabStop = true;
-            this.radioButton4.Text = "Import exisiting disk image";
-            this.radioButton4.UseVisualStyleBackColor = true;
+            this.Import_Disk_Install.AutoSize = true;
+            this.Import_Disk_Install.Location = new System.Drawing.Point(67, 138);
+            this.Import_Disk_Install.Name = "Import_Disk_Install";
+            this.Import_Disk_Install.Size = new System.Drawing.Size(147, 17);
+            this.Import_Disk_Install.TabIndex = 12;
+            this.Import_Disk_Install.TabStop = true;
+            this.Import_Disk_Install.Text = "Import exisiting disk image";
+            this.Import_Disk_Install.UseVisualStyleBackColor = true;
             // 
             // Create_First_Step
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.radioButton4);
-            this.Controls.Add(this.radioButton3);
-            this.Controls.Add(this.radioButton2);
-            this.Controls.Add(this.radioButton1);
+            this.Controls.Add(this.Import_Disk_Install);
+            this.Controls.Add(this.PXE_Install);
+            this.Controls.Add(this.Network_Install);
+            this.Controls.Add(this.Local_Install);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label1);
@@ -143,9 +143,9 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.RadioButton radioButton1;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton radioButton3;
-        private System.Windows.Forms.RadioButton radioButton4;
+        private System.Windows.Forms.RadioButton Local_Install;
+        private System.Windows.Forms.RadioButton Network_Install;
+        private System.Windows.Forms.RadioButton PXE_Install;
+        private System.Windows.Forms.RadioButton Import_Disk_Install;
     }
 }

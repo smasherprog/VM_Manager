@@ -12,10 +12,12 @@ namespace VM_Manager.Domain
     public partial class Create_First_Step : UserControl, VM_Manager.Utilities.MultiStepBase
     {
         private Libvirt.virConnectPtr _connection;
-        public Create_First_Step(Libvirt.virConnectPtr con)
+        private Model.Virtual_Machine _Machine_Def;
+        public Create_First_Step(Libvirt.virConnectPtr con, Model.Virtual_Machine d)
         {
             InitializeComponent();
             _connection = con;
+            _Machine_Def = d;
         }
 
         public bool Validate_Control()
@@ -42,13 +44,22 @@ namespace VM_Manager.Domain
                     return false;
                 }
             }
+            _Machine_Def.Name = textBox2.Text;
             return true;
         }
         public UserControl Next()
         {
+            if(Local_Install.Checked)
+            {
+                return new Local_Media_Create(_connection, _Machine_Def);
+            }
             return null;//NOT IMPLEMENTED YET!!
            
         }
-        public bool Execute() { return true; }
+        public bool Execute() { 
+            
+            return true; 
+        }
+
     }
 }
