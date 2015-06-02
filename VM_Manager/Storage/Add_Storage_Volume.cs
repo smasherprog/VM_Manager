@@ -15,7 +15,7 @@ namespace VM_Manager.Storage
         private readonly Libvirt.virStoragePoolPtr _PoolPtr;
         private readonly Libvirt.virConnectPtr _connectionptr;
         private Libvirt.virStreamSourceFunc _ReaderCallback;
-
+        public Action<string, bool> OnPool_Create_Attempt;
 
         public Add_Storage_Volume(Libvirt.virStoragePoolPtr ptr, Libvirt.virConnectPtr conptr)
         {
@@ -50,6 +50,11 @@ namespace VM_Manager.Storage
                     return;
                 }
             }
+            if (comboBox1.SelectedItem == null)
+            {
+                MessageBox.Show("You must select a format!");
+                return;
+            }
             if(string.IsNullOrWhiteSpace(comboBox1.SelectedItem.ToString()))
             {
                 MessageBox.Show("You must select a format!");
@@ -81,7 +86,7 @@ namespace VM_Manager.Storage
             volstring += "<capacity unit='" + allocunit + "'>" + (max_capacity).ToString() + "</capacity>";
             volstring += "<target><format type='" + alloctype + "'/></target></volume>";
 
-            using(var storagevol = Libvirt.API.virStorageVolCreateXML(_PoolPtr, volstring, Libvirt.virStorageVolCreateFlags.VIR_STORAGE_VOL_CREATE_DEFAULT))
+            using(var storagevol = Libvirt.API.virStorageVolCreateXML(_PoolPtr, volstring, Libvirt.virStorageVolCreateFlags.VIR_DEFAULT))
             {
                 if(storagevol.Pointer != IntPtr.Zero)
                 {
@@ -91,14 +96,17 @@ namespace VM_Manager.Storage
                         var uploaddiag = new Upload_Progress(_connectionptr, storagevol, iso_filepath_txt.Text);
                         uploaddiag.Start();
                         uploaddiag.ShowDialog();
+                        OnPool_Create_Attempt(finalname, true);
                         MessageBox.Show("Successfully uploaded the ISO and created the Volume!");
                     } else
                     {
+                        OnPool_Create_Attempt(finalname, true);
                         MessageBox.Show("Successfully created Volume!");
                     }
                     this.Close();
                 } else
                 {
+                    OnPool_Create_Attempt(finalname, false);
                     MessageBox.Show("Failed to create the Volume!");
                 }
             }

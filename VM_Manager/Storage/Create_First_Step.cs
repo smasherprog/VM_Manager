@@ -41,10 +41,16 @@ namespace VM_Manager.Storage
                     return false;
                 }
             }
+            if (comboBox1.SelectedItem == null)
+            {
+                MessageBox.Show("You must selected a Pool Type!");
+                return false;
+            }
             return true;
         }
         public UserControl Next()
         {
+
             if(comboBox1.SelectedItem.ToString().Contains("Dir:"))
                 return new Dir_Control(_connection, textBox1.Text);
             return null;

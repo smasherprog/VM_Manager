@@ -1,6 +1,6 @@
-﻿namespace VM_Manager
+﻿namespace VM_Manager.Manager
 {
-    partial class Connection_Details
+    partial class Server_Details
     {
         /// <summary>
         /// Required designer variable.
@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.Host_TabControl = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -112,8 +112,8 @@
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.label25 = new System.Windows.Forms.Label();
             this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.Create_VM_btn = new System.Windows.Forms.Button();
             this.VM_List_panel = new System.Windows.Forms.Panel();
+            this.Create_VM_btn = new System.Windows.Forms.Button();
             this.Host_TabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -177,11 +177,11 @@
             // 
             // chart1
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
+            chartArea3.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea3);
             this.chart1.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
+            legend3.Name = "Legend1";
+            this.chart1.Legends.Add(legend3);
             this.chart1.Location = new System.Drawing.Point(3, 16);
             this.chart1.Name = "chart1";
             this.chart1.Size = new System.Drawing.Size(888, 215);
@@ -202,11 +202,11 @@
             // 
             // chart2
             // 
-            chartArea2.Name = "ChartArea1";
-            this.chart2.ChartAreas.Add(chartArea2);
+            chartArea4.Name = "ChartArea1";
+            this.chart2.ChartAreas.Add(chartArea4);
             this.chart2.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend2.Name = "Legend1";
-            this.chart2.Legends.Add(legend2);
+            legend4.Name = "Legend1";
+            this.chart2.Legends.Add(legend4);
             this.chart2.Location = new System.Drawing.Point(3, 16);
             this.chart2.Name = "chart2";
             this.chart2.Size = new System.Drawing.Size(888, 208);
@@ -948,7 +948,7 @@
             // 
             // Create_Storage_Pool_btn
             // 
-            this.Create_Storage_Pool_btn.Location = new System.Drawing.Point(3, 4);
+            this.Create_Storage_Pool_btn.Location = new System.Drawing.Point(12, 5);
             this.Create_Storage_Pool_btn.Name = "Create_Storage_Pool_btn";
             this.Create_Storage_Pool_btn.Size = new System.Drawing.Size(57, 23);
             this.Create_Storage_Pool_btn.TabIndex = 1;
@@ -1000,16 +1000,6 @@
             this.tabPage5.Text = "VMs";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
-            // Create_VM_btn
-            // 
-            this.Create_VM_btn.Location = new System.Drawing.Point(9, 6);
-            this.Create_VM_btn.Name = "Create_VM_btn";
-            this.Create_VM_btn.Size = new System.Drawing.Size(75, 23);
-            this.Create_VM_btn.TabIndex = 2;
-            this.Create_VM_btn.Text = "Create";
-            this.Create_VM_btn.UseVisualStyleBackColor = true;
-            this.Create_VM_btn.Click += new System.EventHandler(this.Create_VM_btn_Click);
-            // 
             // VM_List_panel
             // 
             this.VM_List_panel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -1020,14 +1010,24 @@
             this.VM_List_panel.Size = new System.Drawing.Size(866, 668);
             this.VM_List_panel.TabIndex = 3;
             // 
-            // Connection_Details
+            // Create_VM_btn
+            // 
+            this.Create_VM_btn.Location = new System.Drawing.Point(9, 6);
+            this.Create_VM_btn.Name = "Create_VM_btn";
+            this.Create_VM_btn.Size = new System.Drawing.Size(75, 23);
+            this.Create_VM_btn.TabIndex = 2;
+            this.Create_VM_btn.Text = "Create";
+            this.Create_VM_btn.UseVisualStyleBackColor = true;
+            this.Create_VM_btn.Click += new System.EventHandler(this.Create_VM_btn_Click);
+            // 
+            // Server_Details
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(891, 736);
             this.Controls.Add(this.Host_TabControl);
-            this.Name = "Connection_Details";
-            this.Text = "Host Details";
+            this.Name = "Server_Details";
+            this.Text = "Server Details";
             this.Host_TabControl.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
@@ -1066,10 +1066,6 @@
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label connectionuri;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chart2;
-        private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label hypervisor;
         private System.Windows.Forms.Label hostname;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
@@ -1143,6 +1139,10 @@
         private System.Windows.Forms.Button Create_VM_btn;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.Panel VM_List_panel;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart2;
 
     }
 }

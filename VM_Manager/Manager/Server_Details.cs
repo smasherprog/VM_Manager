@@ -9,16 +9,16 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 
-namespace VM_Manager
+namespace VM_Manager.Manager
 {
-    public partial class Connection_Details : Form
+    public partial class Server_Details : Form
     {
         private Libvirt.virConnectPtr _connection;
         private System.Threading.Thread _pollthread = null;
         private bool _keep_polling = true;
         private Int64 Counter = 0;
         private Libvirt.virErrorFunc _Global_ErrorHandler;//this is needed otherwise the GC reclaims it
-        public Connection_Details(Libvirt.virConnectPtr connection)
+        public Server_Details(Libvirt.virConnectPtr connection)
         {
             InitializeComponent();
 

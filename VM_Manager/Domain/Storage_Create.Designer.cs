@@ -34,6 +34,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.Volume_Combobox = new System.Windows.Forms.ComboBox();
+            this.AutoStart_VM_chk = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label1
@@ -90,10 +91,21 @@
             this.Volume_Combobox.Size = new System.Drawing.Size(323, 21);
             this.Volume_Combobox.TabIndex = 17;
             // 
+            // AutoStart_VM_chk
+            // 
+            this.AutoStart_VM_chk.AutoSize = true;
+            this.AutoStart_VM_chk.Location = new System.Drawing.Point(299, 93);
+            this.AutoStart_VM_chk.Name = "AutoStart_VM_chk";
+            this.AutoStart_VM_chk.Size = new System.Drawing.Size(89, 17);
+            this.AutoStart_VM_chk.TabIndex = 18;
+            this.AutoStart_VM_chk.Text = "AutoStart VM";
+            this.AutoStart_VM_chk.UseVisualStyleBackColor = true;
+            // 
             // Storage_Create
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.AutoStart_VM_chk);
             this.Controls.Add(this.Volume_Combobox);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label2);
@@ -101,7 +113,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
             this.Name = "Storage_Create";
-            this.Size = new System.Drawing.Size(404, 81);
+            this.Size = new System.Drawing.Size(404, 113);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -115,5 +127,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox Volume_Combobox;
+        private System.Windows.Forms.CheckBox AutoStart_VM_chk;
     }
 }

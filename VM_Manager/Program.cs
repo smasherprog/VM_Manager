@@ -13,7 +13,7 @@ namespace VM_Manager
             {
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
-                Application.Run(new Host_List());
+                Application.Run(new VM_Manager.Manager.VM_Manager_Main());
             }
         }
     }

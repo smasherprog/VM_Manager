@@ -15,7 +15,12 @@ namespace VM_Manager.Domain.API
             var domainout = Libvirt.API.virDomainDefineXML(con, test);
             if(domainout.Pointer != IntPtr.Zero)
             {
-                Libvirt.API.virDomainCreate(domainout);
+                _Machine_Def.Created = true;
+                if(_Machine_Def.StartOnCreate) Libvirt.API.virDomainCreate(domainout);
+            }
+            else
+            {
+                _Machine_Def.Created = false;
             }
             return true; 
         }

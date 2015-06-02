@@ -88,6 +88,7 @@
             // Network_Install
             // 
             this.Network_Install.AutoSize = true;
+            this.Network_Install.Enabled = false;
             this.Network_Install.Location = new System.Drawing.Point(67, 92);
             this.Network_Install.Name = "Network_Install";
             this.Network_Install.Size = new System.Drawing.Size(198, 17);
@@ -99,6 +100,7 @@
             // PXE_Install
             // 
             this.PXE_Install.AutoSize = true;
+            this.PXE_Install.Enabled = false;
             this.PXE_Install.Location = new System.Drawing.Point(67, 115);
             this.PXE_Install.Name = "PXE_Install";
             this.PXE_Install.Size = new System.Drawing.Size(120, 17);
@@ -110,6 +112,7 @@
             // Import_Disk_Install
             // 
             this.Import_Disk_Install.AutoSize = true;
+            this.Import_Disk_Install.Enabled = false;
             this.Import_Disk_Install.Location = new System.Drawing.Point(67, 138);
             this.Import_Disk_Install.Name = "Import_Disk_Install";
             this.Import_Disk_Install.Size = new System.Drawing.Size(147, 17);

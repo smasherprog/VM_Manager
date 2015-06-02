@@ -12,5 +12,7 @@ namespace VM_Manager.Domain.Model
         public int Ram { get; set; }
         public int Cpu { get; set; }
         public string storage_path { get; set; }
+        public bool StartOnCreate { get; set; }
+        public bool Created { get; set; }
     }
 }

@@ -54,6 +54,7 @@ namespace VM_Manager.Domain
                 return false;
             }
             _Machine_Def.storage_path = selected;
+            _Machine_Def.StartOnCreate = AutoStart_VM_chk.Checked;
             return true;
         }
         public UserControl Next()
