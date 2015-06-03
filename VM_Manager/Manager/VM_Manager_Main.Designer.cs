@@ -37,6 +37,9 @@
             this.connectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.startToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.stopToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.graceFullToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.forcedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.moveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.renameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -53,11 +56,10 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.Pool_Listing_Context = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.VM_Listing_Context = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.newVMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.refreshToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.stopToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.VM_Context_Strip.SuspendLayout();
             this.VM_Manager_ContextStrip.SuspendLayout();
             this.VM_Server_ContextStrip.SuspendLayout();
@@ -108,43 +110,67 @@
             this.renameToolStripMenuItem,
             this.deleteToolStripMenuItem});
             this.VM_Context_Strip.Name = "VM_Context_Strup";
-            this.VM_Context_Strip.Size = new System.Drawing.Size(153, 180);
+            this.VM_Context_Strip.Size = new System.Drawing.Size(130, 158);
             // 
             // connectToolStripMenuItem
             // 
             this.connectToolStripMenuItem.Name = "connectToolStripMenuItem";
-            this.connectToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.connectToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
             this.connectToolStripMenuItem.Text = "Connect";
             this.connectToolStripMenuItem.Click += new System.EventHandler(this.connectToolStripMenuItem_Click);
             // 
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
             this.settingsToolStripMenuItem.Text = "Settings";
             // 
             // startToolStripMenuItem
             // 
             this.startToolStripMenuItem.Name = "startToolStripMenuItem";
-            this.startToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.startToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
             this.startToolStripMenuItem.Text = "Start";
+            this.startToolStripMenuItem.Click += new System.EventHandler(this.startToolStripMenuItem_Click);
+            // 
+            // stopToolStripMenuItem1
+            // 
+            this.stopToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.graceFullToolStripMenuItem,
+            this.forcedToolStripMenuItem});
+            this.stopToolStripMenuItem1.Name = "stopToolStripMenuItem1";
+            this.stopToolStripMenuItem1.Size = new System.Drawing.Size(129, 22);
+            this.stopToolStripMenuItem1.Text = "ShutDown";
+            // 
+            // graceFullToolStripMenuItem
+            // 
+            this.graceFullToolStripMenuItem.Name = "graceFullToolStripMenuItem";
+            this.graceFullToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.graceFullToolStripMenuItem.Text = "GraceFull";
+            this.graceFullToolStripMenuItem.Click += new System.EventHandler(this.graceFullToolStripMenuItem_Click);
+            // 
+            // forcedToolStripMenuItem
+            // 
+            this.forcedToolStripMenuItem.Name = "forcedToolStripMenuItem";
+            this.forcedToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.forcedToolStripMenuItem.Text = "Forced";
+            this.forcedToolStripMenuItem.Click += new System.EventHandler(this.forcedToolStripMenuItem_Click);
             // 
             // moveToolStripMenuItem
             // 
             this.moveToolStripMenuItem.Name = "moveToolStripMenuItem";
-            this.moveToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.moveToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
             this.moveToolStripMenuItem.Text = "Move";
             // 
             // renameToolStripMenuItem
             // 
             this.renameToolStripMenuItem.Name = "renameToolStripMenuItem";
-            this.renameToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.renameToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
             this.renameToolStripMenuItem.Text = "Rename";
             // 
             // deleteToolStripMenuItem
             // 
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
             this.deleteToolStripMenuItem.Text = "Delete";
             // 
             // VM_Manager_ContextStrip
@@ -246,6 +272,13 @@
             this.newToolStripMenuItem.Text = "New Pool";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
+            // refreshToolStripMenuItem
+            // 
+            this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.refreshToolStripMenuItem.Text = "Refresh";
+            this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
+            // 
             // VM_Listing_Context
             // 
             this.VM_Listing_Context.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -261,26 +294,12 @@
             this.newVMToolStripMenuItem.Text = "New VM";
             this.newVMToolStripMenuItem.Click += new System.EventHandler(this.newVMToolStripMenuItem_Click);
             // 
-            // refreshToolStripMenuItem
-            // 
-            this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
-            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.refreshToolStripMenuItem.Text = "Refresh";
-            this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
-            // 
             // refreshToolStripMenuItem1
             // 
             this.refreshToolStripMenuItem1.Name = "refreshToolStripMenuItem1";
-            this.refreshToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.refreshToolStripMenuItem1.Size = new System.Drawing.Size(119, 22);
             this.refreshToolStripMenuItem1.Text = "Refresh";
             this.refreshToolStripMenuItem1.Click += new System.EventHandler(this.refreshToolStripMenuItem1_Click);
-            // 
-            // stopToolStripMenuItem1
-            // 
-            this.stopToolStripMenuItem1.Name = "stopToolStripMenuItem1";
-            this.stopToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-            this.stopToolStripMenuItem1.Text = "Stop";
-            this.stopToolStripMenuItem1.Click += new System.EventHandler(this.stopToolStripMenuItem1_Click);
             // 
             // VM_Manager_Main
             // 
@@ -331,5 +350,7 @@
         private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem stopToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem graceFullToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem forcedToolStripMenuItem;
     }
 }

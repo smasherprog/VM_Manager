@@ -43,7 +43,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(268, 20);
             this.textBox1.TabIndex = 15;
-            this.textBox1.Text = "qemu+tcp://192.168.0.8/system";
+            this.textBox1.Text = "qemu+tcp://192.168.0.7/system";
             // 
             // label1
             // 

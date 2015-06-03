@@ -14,15 +14,20 @@ namespace VM_Manager.Manager
     public partial class VM_Manager_Main : Form
     {
         private List<Libvirt.virConnectPtr> _Connections = new List<Libvirt.virConnectPtr>();
+        private VM_Manager.Utilities.Libvirt_EventLoop _Libvirt_EventLoop;
 
         public VM_Manager_Main()
         {
             InitializeComponent();
+            _Libvirt_EventLoop = new Utilities.Libvirt_EventLoop();
             this.FormClosing += VM_Manager_Main_FormClosing;
         }
 
+
         void VM_Manager_Main_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (_Libvirt_EventLoop != null) _Libvirt_EventLoop.Dispose();
+            _Libvirt_EventLoop = null;
             foreach (var item in _Connections)
             {
                 try
@@ -161,6 +166,7 @@ namespace VM_Manager.Manager
 
 
         }
+
         private void PopulatePools(TreeNode parent, Libvirt.virConnectPtr ptr)
         {
             Libvirt.virStoragePoolPtr[] pools;
@@ -518,10 +524,6 @@ namespace VM_Manager.Manager
             }
         }
 
-        private void stopToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void connectToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -567,7 +569,7 @@ namespace VM_Manager.Manager
                             {
                                 using (var dominaptr = Libvirt.API.virDomainLookupByName(con, treeView1.SelectedNode.Text))
                                 {
-                                    startInfo.Arguments = " spice://" + Libvirt.API.virConnectGetURI(con).Split('/')[2] + ":" + ( 5900).ToString();
+                                    startInfo.Arguments = " spice://" + Libvirt.API.virConnectGetURI(con).Split('/')[2] + ":" + (5900).ToString();
                                 }
                             }
                             catch (Exception ex)
@@ -575,6 +577,77 @@ namespace VM_Manager.Manager
 
                             }
                             Process.Start(startInfo);
+                        }
+                    }
+                }
+            }
+        }
+
+        private void startToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (treeView1.SelectedNode != null)
+            {
+                if (treeView1.SelectedNode.Tag != null)
+                {
+                    if (treeView1.SelectedNode.Tag.GetType() == typeof(Libvirt.virConnectPtr))
+                    {
+                        var con = (Libvirt.virConnectPtr)treeView1.SelectedNode.Tag;
+                        using(var item = Libvirt.API.virDomainLookupByName(con, treeView1.SelectedNode.Text)){
+                            if(item.Pointer==IntPtr.Zero){
+                                MessageBox.Show("Could not find the VM, unable to start. Try refreshing the VM list.");
+                            } else {
+                                Libvirt.API.virDomainCreate(item);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void graceFullToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (treeView1.SelectedNode != null)
+            {
+                if (treeView1.SelectedNode.Tag != null)
+                {
+                    if (treeView1.SelectedNode.Tag.GetType() == typeof(Libvirt.virConnectPtr))
+                    {
+                        var con = (Libvirt.virConnectPtr)treeView1.SelectedNode.Tag;
+                        using (var item = Libvirt.API.virDomainLookupByName(con, treeView1.SelectedNode.Text))
+                        {
+                            if (item.Pointer == IntPtr.Zero)
+                            {
+                                MessageBox.Show("Could not find the VM, unable to Shutdown. Try refreshing the VM list.");
+                            }
+                            else
+                            {
+                                Libvirt.API.virDomainDestroyFlags(item, Libvirt.virDomainDestroyFlagsValues.VIR_DOMAIN_DESTROY_GRACEFUL);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void forcedToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (treeView1.SelectedNode != null)
+            {
+                if (treeView1.SelectedNode.Tag != null)
+                {
+                    if (treeView1.SelectedNode.Tag.GetType() == typeof(Libvirt.virConnectPtr))
+                    {
+                        var con = (Libvirt.virConnectPtr)treeView1.SelectedNode.Tag;
+                        using (var item = Libvirt.API.virDomainLookupByName(con, treeView1.SelectedNode.Text))
+                        {
+                            if (item.Pointer == IntPtr.Zero)
+                            {
+                                MessageBox.Show("Could not find the VM, unable to Shutdown. Try refreshing the VM list.");
+                            }
+                            else
+                            {
+                                Libvirt.API.virDomainDestroyFlags(item, Libvirt.virDomainDestroyFlagsValues.VIR_DOMAIN_DESTROY_DEFAULT);
+                            }
                         }
                     }
                 }

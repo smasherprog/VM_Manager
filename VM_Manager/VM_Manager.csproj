@@ -109,6 +109,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\..\Libvirt_Windows_CSharpDevelopment\Libvirt_Pinvoke\Libvirt_Pinvoke\Libvirt.cs">
+      <Link>Libvirt.cs</Link>
+    </Compile>
     <Compile Include="Domain\Add_Domain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -229,6 +232,7 @@
     </Compile>
     <Compile Include="Utilities\Console.cs" />
     <Compile Include="Utilities\Formatting.cs" />
+    <Compile Include="Utilities\Libvirt_EventLoop.cs" />
     <Compile Include="Utilities\MultiStepBase.cs" />
     <EmbeddedResource Include="Domain\Add_Domain.resx">
       <DependentUpon>Add_Domain.cs</DependentUpon>
