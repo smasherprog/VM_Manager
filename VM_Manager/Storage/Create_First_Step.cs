@@ -20,22 +20,22 @@ namespace VM_Manager.Storage
 
         public bool Validate_Control()
         {
-            if(string.IsNullOrWhiteSpace(textBox1.Text))
+            if (string.IsNullOrWhiteSpace(textBox1.Text))
             {
                 MessageBox.Show("Name cannot be empty!");
                 return false;
             }
-            foreach(var item in textBox1.Text)
+            foreach (var item in textBox1.Text)
             {
-                if(!Char.IsLetter(item) && item != '_')
+                if (!Char.IsLetter(item) && item != '_')
                 {
                     MessageBox.Show("Name can only contain letters or underscores!");
                     return false;
                 }
             }
-            using(var pool = Libvirt.API.virStoragePoolLookupByName(_connection, textBox1.Text))
+            using (var pool = Libvirt.API.virStoragePoolLookupByName(_connection, textBox1.Text))
             {
-                if(pool.Pointer != IntPtr.Zero)
+                if (pool.Pointer != IntPtr.Zero)
                 {
                     MessageBox.Show("A pool with that name already exists, try another!");
                     return false;
@@ -51,10 +51,12 @@ namespace VM_Manager.Storage
         public UserControl Next()
         {
 
-            if(comboBox1.SelectedItem.ToString().Contains("Dir:"))
+            if (comboBox1.SelectedItem.ToString().Contains("Dir:"))
                 return new Dir_Control(_connection, textBox1.Text);
+            else if (comboBox1.SelectedItem.ToString().Contains("Netfs:"))
+                return new NetFS_Create(_connection, textBox1.Text);
             return null;
-           
+
         }
         public bool Execute() { return true; }
     }

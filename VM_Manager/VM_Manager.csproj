@@ -12,7 +12,7 @@
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <NuGetPackageImportStamp>3e4c8cf4</NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>10f1f624</NuGetPackageImportStamp>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <PublishUrl>publish\</PublishUrl>
@@ -96,7 +96,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Libvirt_Pinvoke, Version=1.2.17.11, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Libvirt_Pinvoke.1.2.17.11\lib\net40\Libvirt_Pinvoke.dll</HintPath>
+      <HintPath>..\packages\Libvirt_Pinvoke.1.2.17.13\lib\net40\Libvirt_Pinvoke.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -109,9 +109,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\Libvirt_Windows_CSharpDevelopment\Libvirt_Pinvoke\Libvirt_Pinvoke\Libvirt.cs">
-      <Link>Libvirt.cs</Link>
-    </Compile>
     <Compile Include="Domain\Add_Domain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -212,6 +209,12 @@
     <Compile Include="Storage\Create_First_Step.Designer.cs">
       <DependentUpon>Create_First_Step.cs</DependentUpon>
     </Compile>
+    <Compile Include="Storage\NetFS_Create.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Storage\NetFS_Create.Designer.cs">
+      <DependentUpon>NetFS_Create.cs</DependentUpon>
+    </Compile>
     <Compile Include="Storage\Dir_Control.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -292,6 +295,9 @@
     <EmbeddedResource Include="Storage\Create_First_Step.resx">
       <DependentUpon>Create_First_Step.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Storage\NetFS_Create.resx">
+      <DependentUpon>NetFS_Create.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Storage\Dir_Control.resx">
       <DependentUpon>Dir_Control.cs</DependentUpon>
     </EmbeddedResource>
@@ -317,18 +323,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="x64\iconv.dll" />
-    <Content Include="x64\libasprintf-0.dll" />
     <Content Include="x64\libcrypto-10.dll" />
     <Content Include="x64\libcurl-4.dll" />
     <Content Include="x64\libffi-6.dll" />
     <Content Include="x64\libgcc_s_seh-1.dll" />
-    <Content Include="x64\libgettextlib-0-18-3.dll" />
-    <Content Include="x64\libgettextpo-0.dll" />
-    <Content Include="x64\libgettextsrc-0-18-3.dll" />
     <Content Include="x64\libgmp-10.dll" />
-    <Content Include="x64\libgmpxx-4.dll" />
     <Content Include="x64\libgnutls-28.dll" />
-    <Content Include="x64\libgnutlsxx-28.dll" />
     <Content Include="x64\libhogweed-2-5.dll" />
     <Content Include="x64\libidn-11.dll" />
     <Content Include="x64\libintl-8.dll" />
@@ -337,10 +337,7 @@
     <Content Include="x64\libportablexdr-0.dll" />
     <Content Include="x64\libssh2-1.dll" />
     <Content Include="x64\libssl-10.dll" />
-    <Content Include="x64\libssp-0.dll" />
-    <Content Include="x64\libstdc++-6.dll" />
     <Content Include="x64\libtasn1-6.dll" />
-    <Content Include="x64\libtermcap-0.dll" />
     <Content Include="x64\libvirt-0.dll" />
     <Content Include="x64\libvirt-lxc-0.dll" />
     <Content Include="x64\libvirt-qemu-0.dll" />
@@ -371,6 +368,33 @@
     <Content Include="x86\libxml2-2.dll" />
     <Content Include="x86\virsh.exe" />
     <Content Include="x86\zlib1.dll" />
+    <None Include="Resources\player_play.png" />
+    <None Include="Resources\shutdown.png" />
+    <None Include="Resources\exit %281%29.png" />
+    <None Include="Resources\stop1normalred.png" />
+    <None Include="Resources\player_pause.png" />
+    <None Include="Resources\connect_creating_256.png" />
+    <None Include="Resources\connect_established.png" />
+    <None Include="Resources\server_connect.png" />
+    <None Include="Resources\add.png" />
+    <None Include="Resources\deletered.png" />
+    <None Include="Resources\ic_arrow_round_move_down.png" />
+    <None Include="Resources\pencil.png" />
+    <None Include="Resources\applications_system.png" />
+    <None Include="Resources\disconnect.png" />
+    <None Include="Resources\view_details.png" />
+    <None Include="Resources\arrow_refresh.png" />
+    <None Include="Resources\gnome_session_reboot.png" />
+    <None Include="Resources\forward.png" />
+    <Content Include="x64\libasprintf-0.dll" />
+    <Content Include="x64\libgettextlib-0-18-3.dll" />
+    <Content Include="x64\libgettextpo-0.dll" />
+    <Content Include="x64\libgettextsrc-0-18-3.dll" />
+    <Content Include="x64\libgmpxx-4.dll" />
+    <Content Include="x64\libgnutlsxx-28.dll" />
+    <Content Include="x64\libssp-0.dll" />
+    <Content Include="x64\libstdc++-6.dll" />
+    <Content Include="x64\libtermcap-0.dll" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.1">
@@ -390,12 +414,12 @@
     </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\packages\Libvirt_Pinvoke.1.2.17.11\build\Libvirt_Pinvoke.targets" Condition="Exists('..\packages\Libvirt_Pinvoke.1.2.17.11\build\Libvirt_Pinvoke.targets')" />
+  <Import Project="..\packages\Libvirt_Pinvoke.1.2.17.13\build\Libvirt_Pinvoke.targets" Condition="Exists('..\packages\Libvirt_Pinvoke.1.2.17.13\build\Libvirt_Pinvoke.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Libvirt_Pinvoke.1.2.17.11\build\Libvirt_Pinvoke.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Libvirt_Pinvoke.1.2.17.11\build\Libvirt_Pinvoke.targets'))" />
+    <Error Condition="!Exists('..\packages\Libvirt_Pinvoke.1.2.17.13\build\Libvirt_Pinvoke.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Libvirt_Pinvoke.1.2.17.13\build\Libvirt_Pinvoke.targets'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

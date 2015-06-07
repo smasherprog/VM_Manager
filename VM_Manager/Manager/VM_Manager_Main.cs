@@ -15,14 +15,20 @@ namespace VM_Manager.Manager
     {
         private List<Libvirt.virConnectPtr> _Connections = new List<Libvirt.virConnectPtr>();
         private VM_Manager.Utilities.Libvirt_EventLoop _Libvirt_EventLoop;
+        private Libvirt.virErrorFunc _ErrorFunc;
 
         public VM_Manager_Main()
         {
             InitializeComponent();
             _Libvirt_EventLoop = new Utilities.Libvirt_EventLoop();
+            _ErrorFunc = virErrorFunc;
             this.FormClosing += VM_Manager_Main_FormClosing;
         }
-
+        void virErrorFunc(IntPtr userData, Libvirt.virErrorPtr error)
+        {
+            var realerror = Libvirt.API.MarshalErrorPtr(error);
+            Debug.WriteLine(realerror.message);
+        }
 
         void VM_Manager_Main_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -54,7 +60,7 @@ namespace VM_Manager.Manager
             Point p = new Point(e.X, e.Y);
             TreeNode node = treeView1.GetNodeAt(p);
             treeView1.SelectedNode = node;
-            Libvirt.virConnectPtr con;
+            Libvirt.virConnectPtr con = new Libvirt.virConnectPtr();
             con.Pointer = IntPtr.Zero;
             if (treeView1.SelectedNode != null)
             {
@@ -133,6 +139,29 @@ namespace VM_Manager.Manager
                             }
                             VM_Context_Strip.Show(treeView1, p);
                         }
+                        moveToolStripMenuItem.DropDownItems.Clear();
+                        var listdropitems = new List<ToolStripItem>();
+                        int counter = 0;
+                        foreach (var server in _Connections.Where(a => a.Pointer != con.Pointer))
+                        {
+                            var drp = new System.Windows.Forms.ToolStripMenuItem();
+
+                            drp.Image = global::VM_Manager.Properties.Resources.forward;
+                            drp.Name = "MoveVmToServer" + (counter++).ToString();
+                            drp.Size = new System.Drawing.Size(152, 22);
+                            drp.Text = Libvirt.API.virConnectGetHostname(server);
+                            drp.Tag = server;//destination server
+                            drp.Visible = true;
+                            drp.ToolTipText = "This will migrate a VM from its current Host to the Selected Host";
+                            drp.Click += new System.EventHandler(this.migrateStripMenuItem_Click);
+                            listdropitems.Add(drp);
+
+                        }
+                        if (listdropitems.Any())
+                        {
+                            moveToolStripMenuItem.DropDownItems.AddRange(listdropitems.ToArray());
+                            moveToolStripMenuItem.Invalidate();
+                        }
                     }
                 }
             }
@@ -167,13 +196,80 @@ namespace VM_Manager.Manager
 
         }
 
-        private void PopulatePools(TreeNode parent, Libvirt.virConnectPtr ptr)
+        private void migrateStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var obj = sender as System.Windows.Forms.ToolStripMenuItem;
+            Libvirt.virConnectPtr source = new Libvirt.virConnectPtr();
+            source.Pointer = IntPtr.Zero;
+            string vmname = "";
+            if (treeView1.SelectedNode != null)
+            {
+                if (treeView1.SelectedNode.Tag != null)
+                {
+                    if (treeView1.SelectedNode.Tag.GetType() == typeof(Libvirt.virConnectPtr))
+                    {
+                        vmname = treeView1.SelectedNode.Text;
+                        source = (Libvirt.virConnectPtr)treeView1.SelectedNode.Tag;
+                    }
+                }
+            }
+            if (source.Pointer != IntPtr.Zero)
+            {
+                var destination = (Libvirt.virConnectPtr)obj.Tag;
+                if (destination.Pointer != IntPtr.Zero)
+                {
+                    using (var sourcevm = Libvirt.API.virDomainLookupByName(source, vmname))
+                    {
+
+
+                        if (sourcevm.Pointer != IntPtr.Zero)
+                        {
+                            Libvirt._virDomainInfo stats;
+                            Libvirt.API.virDomainGetInfo(sourcevm, out stats);
+
+                            var flags = Libvirt.virDomainMigrateFlags.VIR_MIGRATE_ABORT_ON_ERROR |
+                            Libvirt.virDomainMigrateFlags.VIR_MIGRATE_UNDEFINE_SOURCE |
+                            Libvirt.virDomainMigrateFlags.VIR_MIGRATE_PEER2PEER |
+                            Libvirt.virDomainMigrateFlags.VIR_MIGRATE_TUNNELLED;
+
+                            if (stats.state == Libvirt.virDomainState.VIR_DOMAIN_RUNNING || stats.state == Libvirt.virDomainState.VIR_DOMAIN_PAUSED)
+                            {
+                                flags |= Libvirt.virDomainMigrateFlags.VIR_MIGRATE_LIVE;
+                            }
+                            else
+                            {
+
+                            }
+
+                            using (var destvm = Libvirt.API.virDomainMigrate(sourcevm, destination, flags, null, null, 0))
+                            {
+                                if (destvm.Pointer != IntPtr.Zero)
+                                {
+                                    MessageBox.Show("Migration Successfull!!");
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Migration FAILED!!");
+                                }
+
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
+        private void PopulatePools(TreeNode parent, Libvirt.virConnectPtr ptr, bool force_refresh=false)
         {
             Libvirt.virStoragePoolPtr[] pools;
             Libvirt.API.virConnectListAllStoragePools(ptr, out pools, Libvirt.virConnectListAllStoragePoolsFlags.VIR_CONNECT_LIST_STORAGE_POOLS_ACTIVE | Libvirt.virConnectListAllStoragePoolsFlags.VIR_CONNECT_LIST_STORAGE_POOLS_INACTIVE);
 
             foreach (var item in pools)
             {
+                if (force_refresh)
+                {
+                    Libvirt.API.virStoragePoolRefresh(item);
+                }
                 var poolnode = new TreeNode(Libvirt.API.virStoragePoolGetName(item), 3, 3);
                 poolnode.Name = "Pool";
                 poolnode.Tag = ptr;
@@ -224,6 +320,7 @@ namespace VM_Manager.Manager
             if (ptr.Pointer != IntPtr.Zero)
             {
                 var newhostname = Libvirt.API.virConnectGetHostname(ptr);
+                Libvirt.API.virConnSetErrorFunc(ptr, IntPtr.Zero, _ErrorFunc);
                 var newnode = new TreeNode(newhostname, 0, 0);
                 newnode.Tag = ptr;
                 newnode.Name = "VM_Server";
@@ -239,14 +336,14 @@ namespace VM_Manager.Manager
                     {
                         node[0].Nodes.Add(newnode);
 
-                        var vmnode = new TreeNode("VMs", 4, 4);
+                        var vmnode = new TreeNode("VMs", 8, 8);
                         vmnode.Tag = ptr;
                         vmnode.Name = "VM_List";
                         newnode.Nodes.Add(vmnode);
 
                         PopulateVMs(vmnode, ptr);
 
-                        var poolnode = new TreeNode("Pools", 4, 4);
+                        var poolnode = new TreeNode("Pools", 7, 7);
                         poolnode.Tag = ptr;
                         poolnode.Name = "Pool_List";
                         newnode.Nodes.Add(poolnode);
@@ -284,8 +381,7 @@ namespace VM_Manager.Manager
                         {
                             Debug.WriteLine(ex.Message);
                         }
-
-                        _Connections.Remove(con);
+                        _Connections.RemoveAll(a => a.Pointer == con.Pointer);
                         treeView1.Nodes.Remove(nodetoremove);
                     }
                 }
@@ -518,7 +614,7 @@ namespace VM_Manager.Manager
                     {
                         var con = (Libvirt.virConnectPtr)treeView1.SelectedNode.Tag;
                         treeView1.SelectedNode.Nodes.Clear();
-                        PopulatePools(treeView1.SelectedNode, con);
+                        PopulatePools(treeView1.SelectedNode, con, true);
                     }
                 }
             }
@@ -592,10 +688,14 @@ namespace VM_Manager.Manager
                     if (treeView1.SelectedNode.Tag.GetType() == typeof(Libvirt.virConnectPtr))
                     {
                         var con = (Libvirt.virConnectPtr)treeView1.SelectedNode.Tag;
-                        using(var item = Libvirt.API.virDomainLookupByName(con, treeView1.SelectedNode.Text)){
-                            if(item.Pointer==IntPtr.Zero){
+                        using (var item = Libvirt.API.virDomainLookupByName(con, treeView1.SelectedNode.Text))
+                        {
+                            if (item.Pointer == IntPtr.Zero)
+                            {
                                 MessageBox.Show("Could not find the VM, unable to start. Try refreshing the VM list.");
-                            } else {
+                            }
+                            else
+                            {
                                 Libvirt.API.virDomainCreate(item);
                             }
                         }
@@ -621,7 +721,7 @@ namespace VM_Manager.Manager
                             }
                             else
                             {
-                                Libvirt.API.virDomainDestroyFlags(item, Libvirt.virDomainDestroyFlagsValues.VIR_DOMAIN_DESTROY_GRACEFUL);
+                                Libvirt.API.virDomainShutdownFlags(item, Libvirt.virDomainShutdownFlagValues.VIR_DOMAIN_SHUTDOWN_DEFAULT);
                             }
                         }
                     }
@@ -646,7 +746,7 @@ namespace VM_Manager.Manager
                             }
                             else
                             {
-                                Libvirt.API.virDomainDestroyFlags(item, Libvirt.virDomainDestroyFlagsValues.VIR_DOMAIN_DESTROY_DEFAULT);
+                                Libvirt.API.virDomainDestroyFlags(item, Libvirt.virDomainDestroyFlagsValues.VIR_DOMAIN_DESTROY_GRACEFUL);
                             }
                         }
                     }

@@ -17,19 +17,14 @@ namespace VM_Manager.Manager
         private System.Threading.Thread _pollthread = null;
         private bool _keep_polling = true;
         private Int64 Counter = 0;
-        private Libvirt.virErrorFunc _Global_ErrorHandler;//this is needed otherwise the GC reclaims it
+     
         public Server_Details(Libvirt.virConnectPtr connection)
         {
             InitializeComponent();
-
             _connection = connection;
-            _Global_ErrorHandler = virErrorFunc;
-            Libvirt.API.virConnSetErrorFunc(_connection, IntPtr.Zero, _Global_ErrorHandler);
             _pollthread = new System.Threading.Thread(UpdateStats);
             _pollthread.Start();
             this.FormClosing += Connection_Details_FormClosing;
-
-
             Host_TabControl.SelectedIndexChanged += Host_TabControl_SelectedIndexChanged;
             FIllGeneralInfo();
 
@@ -50,11 +45,7 @@ namespace VM_Manager.Manager
 
         }
 
-        void virErrorFunc(IntPtr userData, Libvirt.virErrorPtr error)
-        {
-            var realerror = Libvirt.API.MarshalErrorPtr(error);
-            Debug.WriteLine(realerror.message);
-        }
+     
 
         void Connection_Details_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -118,7 +109,8 @@ namespace VM_Manager.Manager
                     Libvirt._virNodeCPUStats[] cpustats = null;
                     Libvirt.API.virNodeGetCPUStats(_connection, -1, out cpustats, 0);
                     Libvirt._virNodeMemoryStats[] memstats = null;
-                    Libvirt.API.virNodeGetMemoryStats(_connection, -1, out memstats, 0);
+                    int parms = 0;
+                    Libvirt.API.virNodeGetMemoryStats(_connection, -1, out memstats, ref parms);
 
                     chart1.Invoke((MethodInvoker)delegate
                     {

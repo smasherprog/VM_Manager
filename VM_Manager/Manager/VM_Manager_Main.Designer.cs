@@ -32,7 +32,7 @@
             System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("VM-Manager");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VM_Manager_Main));
             this.treeView1 = new System.Windows.Forms.TreeView();
-            this.VM_Server_ImageList = new System.Windows.Forms.ImageList(this.components);
+            this.VM_ImageList = new System.Windows.Forms.ImageList(this.components);
             this.VM_Context_Strip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.connectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -40,6 +40,7 @@
             this.stopToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.graceFullToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.forcedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rebootToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.moveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.renameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -60,6 +61,7 @@
             this.VM_Listing_Context = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.newVMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.refreshToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.VM_Context_Strip.SuspendLayout();
             this.VM_Manager_ContextStrip.SuspendLayout();
             this.VM_Server_ContextStrip.SuspendLayout();
@@ -73,7 +75,7 @@
             this.treeView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.treeView1.ImageIndex = 0;
-            this.treeView1.ImageList = this.VM_Server_ImageList;
+            this.treeView1.ImageList = this.VM_ImageList;
             this.treeView1.Location = new System.Drawing.Point(13, 13);
             this.treeView1.Name = "treeView1";
             treeNode1.ImageKey = "Dedicated-Servers-icon.png";
@@ -87,17 +89,19 @@
             this.treeView1.TabIndex = 0;
             this.treeView1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.treeView1_MouseUp);
             // 
-            // VM_Server_ImageList
+            // VM_ImageList
             // 
-            this.VM_Server_ImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("VM_Server_ImageList.ImageStream")));
-            this.VM_Server_ImageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.VM_Server_ImageList.Images.SetKeyName(0, "LTKp6EA5c.png");
-            this.VM_Server_ImageList.Images.SetKeyName(1, "Dedicated-Servers-icon.png");
-            this.VM_Server_ImageList.Images.SetKeyName(2, "harddrive.png");
-            this.VM_Server_ImageList.Images.SetKeyName(3, "Storage_Pool_lg.png");
-            this.VM_Server_ImageList.Images.SetKeyName(4, "computer_Active_lg.png");
-            this.VM_Server_ImageList.Images.SetKeyName(5, "computer_Unactive_lg.png");
-            this.VM_Server_ImageList.Images.SetKeyName(6, "51874.png");
+            this.VM_ImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("VM_ImageList.ImageStream")));
+            this.VM_ImageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.VM_ImageList.Images.SetKeyName(0, "LTKp6EA5c.png");
+            this.VM_ImageList.Images.SetKeyName(1, "Dedicated-Servers-icon.png");
+            this.VM_ImageList.Images.SetKeyName(2, "harddrive.png");
+            this.VM_ImageList.Images.SetKeyName(3, "Storage_Pool_lg.png");
+            this.VM_ImageList.Images.SetKeyName(4, "computer_Active_lg.png");
+            this.VM_ImageList.Images.SetKeyName(5, "computer_Unactive_lg.png");
+            this.VM_ImageList.Images.SetKeyName(6, "51874.png");
+            this.VM_ImageList.Images.SetKeyName(7, "database.png");
+            this.VM_ImageList.Images.SetKeyName(8, "monitor.png");
             // 
             // VM_Context_Strip
             // 
@@ -114,6 +118,7 @@
             // 
             // connectToolStripMenuItem
             // 
+            this.connectToolStripMenuItem.Image = global::VM_Manager.Properties.Resources.connect_established;
             this.connectToolStripMenuItem.Name = "connectToolStripMenuItem";
             this.connectToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
             this.connectToolStripMenuItem.Text = "Connect";
@@ -121,12 +126,14 @@
             // 
             // settingsToolStripMenuItem
             // 
+            this.settingsToolStripMenuItem.Image = global::VM_Manager.Properties.Resources.applications_system;
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
             this.settingsToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
             this.settingsToolStripMenuItem.Text = "Settings";
             // 
             // startToolStripMenuItem
             // 
+            this.startToolStripMenuItem.Image = global::VM_Manager.Properties.Resources.player_play;
             this.startToolStripMenuItem.Name = "startToolStripMenuItem";
             this.startToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
             this.startToolStripMenuItem.Text = "Start";
@@ -136,39 +143,56 @@
             // 
             this.stopToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.graceFullToolStripMenuItem,
-            this.forcedToolStripMenuItem});
+            this.forcedToolStripMenuItem,
+            this.rebootToolStripMenuItem});
+            this.stopToolStripMenuItem1.Image = global::VM_Manager.Properties.Resources.connect_creating_256;
             this.stopToolStripMenuItem1.Name = "stopToolStripMenuItem1";
             this.stopToolStripMenuItem1.Size = new System.Drawing.Size(129, 22);
             this.stopToolStripMenuItem1.Text = "ShutDown";
             // 
             // graceFullToolStripMenuItem
             // 
+            this.graceFullToolStripMenuItem.Image = global::VM_Manager.Properties.Resources.shutdown;
             this.graceFullToolStripMenuItem.Name = "graceFullToolStripMenuItem";
-            this.graceFullToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.graceFullToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.graceFullToolStripMenuItem.Text = "GraceFull";
+            this.graceFullToolStripMenuItem.ToolTipText = "Gracefull shutdown sends a signal to the OS letting it shut down properly, this d" +
+    "oes not work in all cases.";
             this.graceFullToolStripMenuItem.Click += new System.EventHandler(this.graceFullToolStripMenuItem_Click);
             // 
             // forcedToolStripMenuItem
             // 
+            this.forcedToolStripMenuItem.Image = global::VM_Manager.Properties.Resources.exit__1_;
             this.forcedToolStripMenuItem.Name = "forcedToolStripMenuItem";
-            this.forcedToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.forcedToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.forcedToolStripMenuItem.Text = "Forced";
+            this.forcedToolStripMenuItem.ToolTipText = "Forced shut down is the same as pressing the power button on a machine.";
             this.forcedToolStripMenuItem.Click += new System.EventHandler(this.forcedToolStripMenuItem_Click);
+            // 
+            // rebootToolStripMenuItem
+            // 
+            this.rebootToolStripMenuItem.Image = global::VM_Manager.Properties.Resources.gnome_session_reboot;
+            this.rebootToolStripMenuItem.Name = "rebootToolStripMenuItem";
+            this.rebootToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
+            this.rebootToolStripMenuItem.Text = "Reboot";
             // 
             // moveToolStripMenuItem
             // 
+            this.moveToolStripMenuItem.Image = global::VM_Manager.Properties.Resources.ic_arrow_round_move_down;
             this.moveToolStripMenuItem.Name = "moveToolStripMenuItem";
             this.moveToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
-            this.moveToolStripMenuItem.Text = "Move";
+            this.moveToolStripMenuItem.Text = "Migrate";
             // 
             // renameToolStripMenuItem
             // 
+            this.renameToolStripMenuItem.Image = global::VM_Manager.Properties.Resources.pencil;
             this.renameToolStripMenuItem.Name = "renameToolStripMenuItem";
             this.renameToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
             this.renameToolStripMenuItem.Text = "Rename";
             // 
             // deleteToolStripMenuItem
             // 
+            this.deleteToolStripMenuItem.Image = global::VM_Manager.Properties.Resources.deletered;
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
             this.deleteToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
             this.deleteToolStripMenuItem.Text = "Delete";
@@ -182,6 +206,7 @@
             // 
             // connectToolStripMenuItem1
             // 
+            this.connectToolStripMenuItem1.Image = global::VM_Manager.Properties.Resources.server_connect;
             this.connectToolStripMenuItem1.Name = "connectToolStripMenuItem1";
             this.connectToolStripMenuItem1.Size = new System.Drawing.Size(168, 22);
             this.connectToolStripMenuItem1.Text = "Connect to Server";
@@ -197,6 +222,7 @@
             // 
             // disconnectToolStripMenuItem
             // 
+            this.disconnectToolStripMenuItem.Image = global::VM_Manager.Properties.Resources.disconnect;
             this.disconnectToolStripMenuItem.Name = "disconnectToolStripMenuItem";
             this.disconnectToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.disconnectToolStripMenuItem.Text = "Disconnect";
@@ -204,6 +230,7 @@
             // 
             // detailsToolStripMenuItem
             // 
+            this.detailsToolStripMenuItem.Image = global::VM_Manager.Properties.Resources.view_details;
             this.detailsToolStripMenuItem.Name = "detailsToolStripMenuItem";
             this.detailsToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.detailsToolStripMenuItem.Text = "Details";
@@ -221,6 +248,7 @@
             // 
             // newVolumeToolStripMenuItem
             // 
+            this.newVolumeToolStripMenuItem.Image = global::VM_Manager.Properties.Resources.add;
             this.newVolumeToolStripMenuItem.Name = "newVolumeToolStripMenuItem";
             this.newVolumeToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.newVolumeToolStripMenuItem.Text = "New Volume";
@@ -228,6 +256,7 @@
             // 
             // startToolStripMenuItem1
             // 
+            this.startToolStripMenuItem1.Image = global::VM_Manager.Properties.Resources.player_play;
             this.startToolStripMenuItem1.Name = "startToolStripMenuItem1";
             this.startToolStripMenuItem1.Size = new System.Drawing.Size(142, 22);
             this.startToolStripMenuItem1.Text = "Start";
@@ -235,6 +264,7 @@
             // 
             // stopToolStripMenuItem
             // 
+            this.stopToolStripMenuItem.Image = global::VM_Manager.Properties.Resources.stop1normalred;
             this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
             this.stopToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.stopToolStripMenuItem.Text = "Stop";
@@ -242,6 +272,7 @@
             // 
             // deleteToolStripMenuItem1
             // 
+            this.deleteToolStripMenuItem1.Image = global::VM_Manager.Properties.Resources.deletered;
             this.deleteToolStripMenuItem1.Name = "deleteToolStripMenuItem1";
             this.deleteToolStripMenuItem1.Size = new System.Drawing.Size(142, 22);
             this.deleteToolStripMenuItem1.Text = "Delete";
@@ -267,6 +298,7 @@
             // 
             // newToolStripMenuItem
             // 
+            this.newToolStripMenuItem.Image = global::VM_Manager.Properties.Resources.add;
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
             this.newToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.newToolStripMenuItem.Text = "New Pool";
@@ -274,6 +306,7 @@
             // 
             // refreshToolStripMenuItem
             // 
+            this.refreshToolStripMenuItem.Image = global::VM_Manager.Properties.Resources.arrow_refresh;
             this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
             this.refreshToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.refreshToolStripMenuItem.Text = "Refresh";
@@ -289,6 +322,7 @@
             // 
             // newVMToolStripMenuItem
             // 
+            this.newVMToolStripMenuItem.Image = global::VM_Manager.Properties.Resources.add;
             this.newVMToolStripMenuItem.Name = "newVMToolStripMenuItem";
             this.newVMToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
             this.newVMToolStripMenuItem.Text = "New VM";
@@ -296,6 +330,7 @@
             // 
             // refreshToolStripMenuItem1
             // 
+            this.refreshToolStripMenuItem1.Image = global::VM_Manager.Properties.Resources.arrow_refresh;
             this.refreshToolStripMenuItem1.Name = "refreshToolStripMenuItem1";
             this.refreshToolStripMenuItem1.Size = new System.Drawing.Size(119, 22);
             this.refreshToolStripMenuItem1.Text = "Refresh";
@@ -335,7 +370,7 @@
         private System.Windows.Forms.ToolStripMenuItem connectToolStripMenuItem1;
         private System.Windows.Forms.ContextMenuStrip VM_Server_ContextStrip;
         private System.Windows.Forms.ToolStripMenuItem disconnectToolStripMenuItem;
-        private System.Windows.Forms.ImageList VM_Server_ImageList;
+        private System.Windows.Forms.ImageList VM_ImageList;
         private System.Windows.Forms.ToolStripMenuItem detailsToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip Pool_Contet_MenuStrip;
         private System.Windows.Forms.ToolStripMenuItem newVolumeToolStripMenuItem;
@@ -352,5 +387,7 @@
         private System.Windows.Forms.ToolStripMenuItem stopToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem graceFullToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem forcedToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem rebootToolStripMenuItem;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

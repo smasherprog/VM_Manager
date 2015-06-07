@@ -45,7 +45,7 @@ namespace VM_Manager.Utilities
             {
                 try
                 {
-                    KeepRunningLoop = Libvirt.API.virEventRunDefaultImpl() == 0;
+                    if (Libvirt.API.virEventRunDefaultImpl() != 0) break;
                 }
                 catch (Exception e)
                 {

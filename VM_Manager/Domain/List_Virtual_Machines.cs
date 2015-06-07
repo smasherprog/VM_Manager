@@ -77,7 +77,8 @@ namespace VM_Manager.Domain
                     Libvirt._virNodeCPUStats[] cpustats = null;
                     Libvirt.API.virNodeGetCPUStats(_connection, -1, out cpustats, 0);
                     Libvirt._virNodeMemoryStats[] memstats = null;
-                    Libvirt.API.virNodeGetMemoryStats(_connection, -1, out memstats, 0);
+                    int parsm = 0;
+                    Libvirt.API.virNodeGetMemoryStats(_connection, -1, out memstats, ref parsm);
                   
                     chart1.Invoke((MethodInvoker)delegate
                     {
