@@ -11,16 +11,16 @@ namespace VM_Manager.Storage
 {
     public partial class Upload_Progress : Form
     {
-        private readonly Libvirt.virStorageVolPtr _storage_ptr;
-        private readonly Libvirt.virConnectPtr _connectionptr;
+        private readonly Libvirt.CS_Objects.Storage_Volume _storage_ptr;
+        private readonly Libvirt.CS_Objects.Host _connectionptr;
         private readonly string filepath;
         private System.Threading.Thread _uploadthread;
         private bool _keeprunning = false;
-        public Upload_Progress( Libvirt.virConnectPtr _cptr, Libvirt.virStorageVolPtr _s_ptr,string fpath)
+        public Upload_Progress(Libvirt.CS_Objects.Host hostptr, Libvirt.CS_Objects.Storage_Volume volptr, string fpath)
         {
             InitializeComponent();
-            _storage_ptr = _s_ptr;
-            _connectionptr = _cptr;
+            _storage_ptr = volptr;
+            _connectionptr = hostptr;
             filepath = fpath;
             this.FormClosing += Upload_Progress_FormClosing;
         }
@@ -49,12 +49,12 @@ namespace VM_Manager.Storage
         }
         private void Run()
         {
-            using(var st = Libvirt.API.virStreamNew(_connectionptr, Libvirt.virStreamFlags.VIR_STREAM_NONBLOCK))
+            using (var st = _connectionptr.virStreamNew(Libvirt.virStreamFlags.VIR_STREAM_NONBLOCK))
             {
                 using(var localfs = new System.IO.FileStream(filepath, System.IO.FileMode.Open, System.IO.FileAccess.Read))
                 {
 
-                    var stupload = Libvirt.API.virStorageVolUpload(_storage_ptr, st, 0, (ulong)localfs.Length);
+                    var stupload = _storage_ptr.virStorageVolUpload(st, 0, (ulong)localfs.Length);
                     long chunksize = 65000;
                     var dat = new byte[chunksize];
                     var totalbytes = localfs.Length;
@@ -66,10 +66,10 @@ namespace VM_Manager.Storage
                             bytestoread = totalbytes;
                         }
                         var bread = (uint)localfs.Read(dat, 0, (int)bytestoread);
-                        var bytessent = Libvirt.API.virStreamSend(st, dat, bread);
+                        var bytessent = st.virStreamSend(dat, bread);
                         if(bytessent < 0)
                         {
-                            Libvirt.API.virStreamAbort(st);
+                            st.virStreamAbort();
                             break;//get out!!
                         }
                         totalbytes -= (long)bread;
@@ -81,9 +81,9 @@ namespace VM_Manager.Storage
                     }
                     if(!_keeprunning)
                     {//if it was canceled abort as well
-                        Libvirt.API.virStreamAbort(st);
+                        st.virStreamAbort();
                     }
-                    Libvirt.API.virStreamFinish(st);
+                    st.virStreamFinish();
                 }
             }
             this.Invoke((MethodInvoker)delegate

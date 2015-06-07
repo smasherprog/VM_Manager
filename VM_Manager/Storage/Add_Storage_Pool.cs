@@ -11,9 +11,9 @@ namespace VM_Manager.Storage
 {
     public partial class Add_Storage_Pool : Form
     {
-        private readonly Libvirt.virConnectPtr _connection;
+        private readonly Libvirt.CS_Objects.Host _connection;
         private UserControl _CurrentControl;
-        public Add_Storage_Pool(Libvirt.virConnectPtr con)
+        public Add_Storage_Pool(Libvirt.CS_Objects.Host con)
         {
             InitializeComponent();
             _connection = con;

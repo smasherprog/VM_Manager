@@ -11,9 +11,9 @@ namespace VM_Manager.Domain
 {
     public partial class Storage_Create : UserControl, VM_Manager.Utilities.MultiStepBase
     {
-       private Libvirt.virConnectPtr _connection;
+        private Libvirt.CS_Objects.Host _connection;
         private Model.Virtual_Machine _Machine_Def;
-        public Storage_Create(Libvirt.virConnectPtr con, Model.Virtual_Machine d)
+        public Storage_Create(Libvirt.CS_Objects.Host con, Model.Virtual_Machine d)
         {
             InitializeComponent();
             _connection = con;
@@ -22,14 +22,14 @@ namespace VM_Manager.Domain
         }
         private void Init_Controls()
         {
-            Libvirt.virStoragePoolPtr[] pools;
-            Libvirt.API.virConnectListAllStoragePools(_connection, out pools, Libvirt.virConnectListAllStoragePoolsFlags.VIR_CONNECT_LIST_STORAGE_POOLS_ACTIVE);
+            Libvirt.CS_Objects.Storage_Pool[] pools;
+            _connection.virConnectListAllStoragePools(out pools, Libvirt.virConnectListAllStoragePoolsFlags.VIR_CONNECT_LIST_STORAGE_POOLS_ACTIVE);
 
             foreach(var item in pools)
             {
                 Libvirt._virStoragePoolInfo poolinfo;
-                Libvirt.API.virStoragePoolGetInfo(item, out poolinfo);
-                var poolname = Libvirt.API.virStoragePoolGetName(item);
+                item.virStoragePoolGetInfo(out poolinfo);
+                var poolname = item.virStoragePoolGetName();
                 item.Dispose();
                 Pool_Combobox.Items.Add(poolname);
             }
@@ -73,16 +73,16 @@ namespace VM_Manager.Domain
             var selected = Pool_Combobox.SelectedItem != null ? Pool_Combobox.SelectedItem.ToString() : "";
             if(string.IsNullOrWhiteSpace(selected))
                 return;
-            using(var pool = Libvirt.API.virStoragePoolLookupByName(_connection, selected))
+            using (var pool = _connection.virStoragePoolLookupByName(selected))
             {
-                if(pool.Pointer != IntPtr.Zero)
+                if(pool.IsValid)
                 {
-                    Libvirt.virStorageVolPtr[] volumes;
-                    if(Libvirt.API.virStoragePoolListAllVolumes(pool, out volumes) > 0)
+                    Libvirt.CS_Objects.Storage_Volume[] volumes;
+                    if (pool.virStoragePoolListAllVolumes(out volumes) > 0)
                     {
                         foreach(var item in volumes)
                         {
-                            var volpath = Libvirt.API.virStorageVolGetPath(item);
+                            var volpath = item.virStorageVolGetPath();
                             if(volpath.EndsWith(".img"))
                                 Volume_Combobox.Items.Add(volpath);
                             item.Dispose();

@@ -11,9 +11,9 @@ namespace VM_Manager.Storage
 {
     public partial class Dir_Control : UserControl, VM_Manager.Utilities.MultiStepBase
     {
-        private Libvirt.virConnectPtr _connection;
+        private Libvirt.CS_Objects.Host _connection;
         private string _poolname;
-        public Dir_Control(Libvirt.virConnectPtr con, string name)
+        public Dir_Control(Libvirt.CS_Objects.Host con, string name)
         {
             InitializeComponent();
             _connection = con;
@@ -36,14 +36,14 @@ namespace VM_Manager.Storage
         public bool Execute()
         {
             var stpool = "<pool type=\"dir\"><name>" + _poolname + "</name><target><path>" + textBox1.Text + "</path></target></pool>";
-            using(var pooldef = Libvirt.API.virStoragePoolDefineXML(_connection, stpool))
+            using (var pooldef = _connection.virStoragePoolDefineXML(stpool))
             {
-                var suc = Libvirt.API.virStoragePoolBuild(pooldef, Libvirt.virStoragePoolBuildFlags.VIR_STORAGE_POOL_BUILD_NEW);
-                suc = Libvirt.API.virStoragePoolCreate(pooldef);
+                var suc = pooldef.virStoragePoolBuild(Libvirt.virStoragePoolBuildFlags.VIR_STORAGE_POOL_BUILD_NEW);
+                suc = pooldef.virStoragePoolCreate();
 
                 if(suc == 0)
                 {
-                    Libvirt.API.virStoragePoolSetAutostart(pooldef, 1);
+                    pooldef.virStoragePoolSetAutostart(1);
                     MessageBox.Show("Successfully Created Pool");
                     return true;
                 } else

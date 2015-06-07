@@ -14,7 +14,7 @@ namespace VM_Manager.Manager
     public partial class Server_Connect : Form
     {
         private Libvirt.virConnectAuthCallback _authcallback;
-        public Action<Libvirt.virConnectPtr> On_NewServerConnect_CB;
+        public Action<Libvirt.CS_Objects.Host> On_NewServerConnect_CB;
         public Server_Connect()
         {
             InitializeComponent();
@@ -60,34 +60,33 @@ namespace VM_Manager.Manager
                     //https://www.webvirtmgr.net/docs/ shows how to set up a login/password authentication...
                     if (!string.IsNullOrWhiteSpace(Login_txt_bx.Text) && !string.IsNullOrWhiteSpace(Password_txt_bx.Text))
                     {
-                        var _connection = await Libvirt.API.virConnectOpenAuth(textBox1.Text, authstrcut, Libvirt.virConnectFlags.VIR_DEFAULT);
-                        if (_connection.Pointer != IntPtr.Zero)
+                        var _connection = await Libvirt.CS_Objects.Host.virConnectOpenAuth(textBox1.Text, authstrcut, Libvirt.virConnectFlags.VIR_DEFAULT);
+                        if (_connection.IsValid && On_NewServerConnect_CB != null)
                         {
-                            if (On_NewServerConnect_CB != null)
-                            {
-                                On_NewServerConnect_CB(_connection);
-                                this.Close();
-                            }
+                            On_NewServerConnect_CB(_connection);
+                            this.Close();
                         }
-                        else MessageBox.Show("Unable to connect!");
+                        else
+                        {
+                            _connection.Dispose();
+                            MessageBox.Show("Unable to connect!");
+                        }
                     }
                     else MessageBox.Show("You must enter a login and password!");
                 }
                 else
                 {
                     //use anonymous connection
-                    // http://pineapplesoftware.blogspot.com/2012/11/configuring-unsecure-remote-access-to.html shows how to set up an anonymous connection --THIS IS UNSECURE!
-                    var _connection = await Libvirt.API.virConnectOpen(textBox1.Text);
-                    if (_connection.Pointer != IntPtr.Zero)
+                    // http://pineapplesoftware.blogspot.com/2012/11/configuring-unsecure-remote-access-to.html shows how to set up an anonymous connection --THIS IS UNSECURE, but good to get started!
+                    var _connection = await Libvirt.CS_Objects.Host.virConnectOpen(textBox1.Text);
+                    if (_connection.IsValid && On_NewServerConnect_CB != null)
                     {
-                        if (On_NewServerConnect_CB != null)
-                        {
-                            On_NewServerConnect_CB(_connection);
-                            this.Close();
-                        }
+                        On_NewServerConnect_CB(_connection);
+                        this.Close();
                     }
                     else
                     {
+                        _connection.Dispose();
                         MessageBox.Show("Unable to connect!");
                     }
                 }

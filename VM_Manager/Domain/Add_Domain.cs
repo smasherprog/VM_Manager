@@ -11,13 +11,13 @@ namespace VM_Manager.Domain
 {
     public partial class Add_Domain : Form
     {
-        
-        private readonly Libvirt.virConnectPtr _connection;
+
+        private readonly Libvirt.CS_Objects.Host _connection;
         private UserControl _CurrentControl;
         private int Page = 1;
         private Model.Virtual_Machine _Machine_Def = new Model.Virtual_Machine();
         public Action<Model.Virtual_Machine> OnVM_Create_Attempt;
-        public Add_Domain(Libvirt.virConnectPtr con)
+        public Add_Domain(Libvirt.CS_Objects.Host con)
         {
             InitializeComponent();
             _connection = con;

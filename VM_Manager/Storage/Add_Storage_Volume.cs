@@ -12,25 +12,25 @@ namespace VM_Manager.Storage
 {
     public partial class Add_Storage_Volume : Form
     {
-        private readonly Libvirt.virStoragePoolPtr _PoolPtr;
-        private readonly Libvirt.virConnectPtr _connectionptr;
+        private readonly Libvirt.CS_Objects.Storage_Pool _PoolPtr;
+        private readonly Libvirt.CS_Objects.Host _connectionptr;
         private Libvirt.virStreamSourceFunc _ReaderCallback;
         public Action<string, bool> OnPool_Create_Attempt;
 
-        public Add_Storage_Volume(Libvirt.virStoragePoolPtr ptr, Libvirt.virConnectPtr conptr)
+        public Add_Storage_Volume(Libvirt.CS_Objects.Storage_Pool ptr, Libvirt.CS_Objects.Host conptr)
         {
             _PoolPtr = ptr;
             _connectionptr = conptr;
             InitializeComponent();
 
             Libvirt._virStoragePoolInfo info;
-            Libvirt.API.virStoragePoolGetInfo(ptr, out info);
+            ptr.virStoragePoolGetInfo(out info);
             Max_Capacity_Numeric.Maximum = info.available / 1000000;//convert to Megabytes
             Max_Capacity_Numeric.Minimum = 100;
             Allocation_Numeric.Maximum = info.available / 1000000;//convert to Megabytes
             Allocation_Numeric.Minimum = 0;
             _ReaderCallback = Read_CB;
-            AvailSpaceLabel.Text = Libvirt.API.virStoragePoolGetName(ptr) + "'s available space: " + VM_Manager.Utilities.Formatting.Format((long)info.available);
+            AvailSpaceLabel.Text = ptr.virStoragePoolGetName() + "'s available space: " + VM_Manager.Utilities.Formatting.Format((long)info.available);
         }
 
 
@@ -86,9 +86,9 @@ namespace VM_Manager.Storage
             volstring += "<capacity unit='" + allocunit + "'>" + (max_capacity).ToString() + "</capacity>";
             volstring += "<target><format type='" + alloctype + "'/></target></volume>";
 
-            using(var storagevol = Libvirt.API.virStorageVolCreateXML(_PoolPtr, volstring, Libvirt.virStorageVolCreateFlags.VIR_DEFAULT))
+            using (var storagevol = _PoolPtr.virStorageVolCreateXML(volstring, Libvirt.virStorageVolCreateFlags.VIR_DEFAULT))
             {
-                if(storagevol.Pointer != IntPtr.Zero)
+                if(storagevol.IsValid)
                 {
                   
                     if(comboBox1.SelectedItem.ToString() == "iso")

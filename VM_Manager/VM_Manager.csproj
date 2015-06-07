@@ -12,7 +12,7 @@
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <NuGetPackageImportStamp>10f1f624</NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>e5b0ad05</NuGetPackageImportStamp>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <PublishUrl>publish\</PublishUrl>
@@ -96,7 +96,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Libvirt_Pinvoke, Version=1.2.17.11, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Libvirt_Pinvoke.1.2.17.13\lib\net40\Libvirt_Pinvoke.dll</HintPath>
+      <HintPath>..\packages\Libvirt_Pinvoke.1.2.17.14\lib\net40\Libvirt_Pinvoke.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -414,12 +414,12 @@
     </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\packages\Libvirt_Pinvoke.1.2.17.13\build\Libvirt_Pinvoke.targets" Condition="Exists('..\packages\Libvirt_Pinvoke.1.2.17.13\build\Libvirt_Pinvoke.targets')" />
+  <Import Project="..\packages\Libvirt_Pinvoke.1.2.17.14\build\Libvirt_Pinvoke.targets" Condition="Exists('..\packages\Libvirt_Pinvoke.1.2.17.14\build\Libvirt_Pinvoke.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Libvirt_Pinvoke.1.2.17.13\build\Libvirt_Pinvoke.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Libvirt_Pinvoke.1.2.17.13\build\Libvirt_Pinvoke.targets'))" />
+    <Error Condition="!Exists('..\packages\Libvirt_Pinvoke.1.2.17.14\build\Libvirt_Pinvoke.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Libvirt_Pinvoke.1.2.17.14\build\Libvirt_Pinvoke.targets'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

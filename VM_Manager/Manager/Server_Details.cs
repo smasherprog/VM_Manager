@@ -17,11 +17,11 @@ namespace VM_Manager.Manager
         private System.Threading.Thread _pollthread = null;
         private bool _keep_polling = true;
         private Int64 Counter = 0;
-     
-        public Server_Details(Libvirt.virConnectPtr connection)
+
+        public Server_Details(Libvirt.CS_Objects.Host connection)
         {
             InitializeComponent();
-            _connection = connection;
+            _connection = Libvirt.CS_Objects.Host.GetPtr(connection);
             _pollthread = new System.Threading.Thread(UpdateStats);
             _pollthread.Start();
             this.FormClosing += Connection_Details_FormClosing;
@@ -210,8 +210,8 @@ namespace VM_Manager.Manager
 
         private void Create_Storage_Pool_btn_Click(object sender, EventArgs e)
         {
-            var fs = new VM_Manager.Storage.Add_Storage_Pool(_connection);
-            fs.ShowDialog();
+           // var fs = new VM_Manager.Storage.Add_Storage_Pool(_connection);
+           // fs.ShowDialog();
         }
 
         private void Stop_Storage_Pool_btn_Click(object sender, EventArgs e)
@@ -247,8 +247,8 @@ namespace VM_Manager.Manager
                 {
                     if(pool.Pointer != IntPtr.Zero)
                     {
-                        var f = new VM_Manager.Storage.Add_Storage_Volume(pool, _connection);
-                        f.ShowDialog();
+                       // var f = new VM_Manager.Storage.Add_Storage_Volume(pool, _connection);
+                      //  f.ShowDialog();
                     }
                 }
             }
@@ -297,8 +297,8 @@ namespace VM_Manager.Manager
 
         private void Create_VM_btn_Click(object sender, EventArgs e)
         {
-            var f = new VM_Manager.Domain.Add_Domain(_connection);
-            f.ShowDialog();
+          //  var f = new VM_Manager.Domain.Add_Domain(_connection);
+          //  f.ShowDialog();
         }
     }
 }

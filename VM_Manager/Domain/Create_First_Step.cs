@@ -11,9 +11,9 @@ namespace VM_Manager.Domain
 {
     public partial class Create_First_Step : UserControl, VM_Manager.Utilities.MultiStepBase
     {
-        private Libvirt.virConnectPtr _connection;
+        private Libvirt.CS_Objects.Host _connection;
         private Model.Virtual_Machine _Machine_Def;
-        public Create_First_Step(Libvirt.virConnectPtr con, Model.Virtual_Machine d)
+        public Create_First_Step(Libvirt.CS_Objects.Host con, Model.Virtual_Machine d)
         {
             InitializeComponent();
             _connection = con;
@@ -35,10 +35,10 @@ namespace VM_Manager.Domain
                     return false;
                 }
             }
-        
-            using(var pool = Libvirt.API.virDomainLookupByName(_connection, textBox2.Text))
+
+            using (var pool = _connection.virDomainLookupByName(textBox2.Text))
             {
-                if(pool.Pointer != IntPtr.Zero)
+                if(pool.IsValid)
                 {
                     MessageBox.Show("A VM with that name already exists, try another!");
                     return false;

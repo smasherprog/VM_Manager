@@ -11,8 +11,8 @@ namespace VM_Manager.Storage
 {
     public partial class Create_First_Step : UserControl, VM_Manager.Utilities.MultiStepBase
     {
-        private Libvirt.virConnectPtr _connection;
-        public Create_First_Step(Libvirt.virConnectPtr con)
+        private Libvirt.CS_Objects.Host _connection;
+        public Create_First_Step(Libvirt.CS_Objects.Host con)
         {
             InitializeComponent();
             _connection = con;
@@ -33,9 +33,9 @@ namespace VM_Manager.Storage
                     return false;
                 }
             }
-            using (var pool = Libvirt.API.virStoragePoolLookupByName(_connection, textBox1.Text))
+            using (var pool = _connection.virStoragePoolLookupByName(textBox1.Text))
             {
-                if (pool.Pointer != IntPtr.Zero)
+                if (pool.IsValid)
                 {
                     MessageBox.Show("A pool with that name already exists, try another!");
                     return false;

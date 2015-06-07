@@ -11,10 +11,10 @@ namespace VM_Manager.Domain
 {
     public partial class Cpu_Ram_Create : UserControl, VM_Manager.Utilities.MultiStepBase
     {
-      private Libvirt.virConnectPtr _connection;
+        private Libvirt.CS_Objects.Host _connection;
         private Model.Virtual_Machine _Machine_Def;
       
-        public Cpu_Ram_Create(Libvirt.virConnectPtr con, Model.Virtual_Machine d)
+        public Cpu_Ram_Create(Libvirt.CS_Objects.Host con, Model.Virtual_Machine d)
         {
             InitializeComponent();
             _connection = con;
@@ -24,7 +24,7 @@ namespace VM_Manager.Domain
         private void UpdateControls()
         {  
             Libvirt._virNodeInfo info;
-            Libvirt.API.virNodeGetInfo(_connection, out info);
+            _connection.virNodeGetInfo(out info);
             Memory_num.Maximum = info.memory;
             Available_Memory_txt.Text = "Up to " + (info.memory/1024).ToString() + " MB available on the host";
             CPU_num.Maximum = info.cpus;

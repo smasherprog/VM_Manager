@@ -11,9 +11,9 @@ namespace VM_Manager.Storage
 {
     public partial class NetFS_Create : UserControl, VM_Manager.Utilities.MultiStepBase
     {
-        private Libvirt.virConnectPtr _connection;
+        private Libvirt.CS_Objects.Host _connection;
         private string _poolname;
-        public NetFS_Create(Libvirt.virConnectPtr con, string name)
+        public NetFS_Create(Libvirt.CS_Objects.Host con, string name)
         {
             InitializeComponent();
             _connection = con;
@@ -70,14 +70,14 @@ namespace VM_Manager.Storage
             var stpool = "<pool type=\"netfs\"><name>" + _poolname + "</name>";
             stpool += "<source><host name='" + Host_Name_txt_bx.Text + "'/><dir path='" + Source_Path_txt_bx.Text + "'/><format type='" + Format_drp_dwn.SelectedItem.ToString() + "'/></source>";
             stpool += "<target><path>" + Target_Path_txt_bx.Text + "</path></target></pool>";
-            using (var pooldef = Libvirt.API.virStoragePoolDefineXML(_connection, stpool))
+            using (var pooldef = _connection.virStoragePoolDefineXML(stpool))
             {
-                var suc = Libvirt.API.virStoragePoolBuild(pooldef, Libvirt.virStoragePoolBuildFlags.VIR_STORAGE_POOL_BUILD_NEW);
-                suc = Libvirt.API.virStoragePoolCreate(pooldef);
+                var suc = pooldef.virStoragePoolBuild(Libvirt.virStoragePoolBuildFlags.VIR_STORAGE_POOL_BUILD_NEW);
+                suc = pooldef.virStoragePoolCreate();
 
                 if (suc == 0)
                 {
-                    Libvirt.API.virStoragePoolSetAutostart(pooldef, 1);
+                    pooldef.virStoragePoolSetAutostart(1);
                     MessageBox.Show("Successfully Created Pool");
                     return true;
                 }

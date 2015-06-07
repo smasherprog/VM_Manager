@@ -12,15 +12,15 @@ namespace VM_Manager.Storage
 {
     public partial class Storage_Pool_Listing : UserControl
     {
-        private Libvirt.virConnectPtr _connection;
+        private Libvirt.CS_Objects.Host _connection;
         private string _poolname;
-        public Storage_Pool_Listing(Libvirt.virConnectPtr con, string storagepoolname)
+        public Storage_Pool_Listing(Libvirt.CS_Objects.Host con, string storagepoolname)
         {
             this.Dock = DockStyle.Fill;
             InitializeComponent();
             Refresh(con, storagepoolname);
         }
-        public void Refresh(Libvirt.virConnectPtr con, string storagepoolname)
+        public void Refresh(Libvirt.CS_Objects.Host con, string storagepoolname)
         {
             _connection = con;
             _poolname = storagepoolname;
@@ -29,15 +29,15 @@ namespace VM_Manager.Storage
         private void UpdateStorageInfo()
         {
             Volume_ListView.Items.Clear();
-            using (var pool = Libvirt.API.virStoragePoolLookupByName(_connection, _poolname))
+            using (var pool = _connection.virStoragePoolLookupByName(_poolname))
             {
-                if (pool.Pointer != IntPtr.Zero)
+                if (pool.IsValid)
                 {
                     Libvirt._virStoragePoolInfo info;
-                    Libvirt.API.virStoragePoolGetInfo(pool, out info);
+                    pool.virStoragePoolGetInfo(out info);
                     Storage_Pool_State_txt.Text = info.state.ToString();
                     int autostart = 0;
-                    Libvirt.API.virStoragePoolGetAutostart(pool, out autostart);
+                    pool.virStoragePoolGetAutostart(out autostart);
                     Storage_AutoStart_ck.Checked = autostart == 1;
                     if (Storage_AutoStart_ck.Checked)
                     {
@@ -49,14 +49,14 @@ namespace VM_Manager.Storage
                     }
 
                     Storage_Default_txt.Text = VM_Manager.Utilities.Formatting.Format((long)info.available) + " Free / " + VM_Manager.Utilities.Formatting.Format((long)(info.capacity - info.available)) + " in Use ";
-                    Libvirt.virStorageVolPtr[] volumes;
-                    if (Libvirt.API.virStoragePoolListAllVolumes(pool, out volumes) > 0)
+                    Libvirt.CS_Objects.Storage_Volume[] volumes;
+                    if (pool.virStoragePoolListAllVolumes(out volumes) > 0)
                     {
                         foreach (var item in volumes)
                         {
                             Libvirt._virStorageVolInfo volinfo;
-                            Libvirt.API.virStorageVolGetInfo(item, out volinfo);
-                            var volname = Libvirt.API.virStorageVolGetName(item);
+                            item.virStorageVolGetInfo(out volinfo);
+                            var volname = item.virStorageVolGetName();
                             var li = new ListViewItem(new string[] { volname, VM_Manager.Utilities.Formatting.Format((long)volinfo.allocation), VM_Manager.Utilities.Formatting.Format((long)volinfo.capacity), volinfo.type.ToString() });
                             Volume_ListView.Items.Add(li);
                             item.Dispose();
@@ -73,9 +73,9 @@ namespace VM_Manager.Storage
 
         private void Storage_Create_Volume_btn_Click(object sender, EventArgs e)
         {
-            using (var pool = Libvirt.API.virStoragePoolLookupByName(_connection, _poolname))
+            using (var pool = _connection.virStoragePoolLookupByName(_poolname))
             {
-                if (pool.Pointer != IntPtr.Zero)
+                if (pool.IsValid)
                 {
                     var fs = new VM_Manager.Storage.Add_Storage_Volume(pool, _connection);
                     fs.ShowDialog();
@@ -93,15 +93,15 @@ namespace VM_Manager.Storage
 
             if (Volume_ListView.SelectedItems.Count > 0 && MessageBox.Show("Are you sure that you want to delete the selected Volume?", "DELETE VOLUME", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
             {
-                using (var pool = Libvirt.API.virStoragePoolLookupByName(_connection, _poolname))
+                using (var pool = _connection.virStoragePoolLookupByName(_poolname))
                 {
-                    if (pool.Pointer != IntPtr.Zero)
+                    if (pool.IsValid)
                     {
-                        using (var volume = Libvirt.API.virStorageVolLookupByName(pool, Volume_ListView.SelectedItems[0].SubItems[0].Text))
+                        using (var volume = pool.virStorageVolLookupByName(Volume_ListView.SelectedItems[0].SubItems[0].Text))
                         {
-                            if (volume.Pointer != IntPtr.Zero)
+                            if (volume.IsValid)
                             {
-                                if (Libvirt.API.virStorageVolDelete(volume) == 0)
+                                if (volume.virStorageVolDelete() == 0)
                                 {
                                     MessageBox.Show("Successfully Deleted Volume!");
                                 }
