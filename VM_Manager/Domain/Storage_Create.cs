@@ -31,18 +31,18 @@ namespace VM_Manager.Domain
                 item.virStoragePoolGetInfo(out poolinfo);
                 var poolname = item.virStoragePoolGetName();
                 item.Dispose();
-                Pool_Combobox.Items.Add(poolname);
+                Pool_ListBox.Items.Add(poolname);
             }
         }
         public bool Validate_Control()
         {
-            if(Volume_Combobox.Items.Count<0)
+            if(Volume_ListBox.Items.Count<0)
             {
                 MessageBox.Show("You must select an img file!");
                 return false;
             }
 
-            var selected = Volume_Combobox.SelectedItem != null ? Volume_Combobox.SelectedItem.ToString() : "";
+            var selected = Volume_ListBox.SelectedItem != null ? Volume_ListBox.SelectedItem.ToString() : "";
             if(!string.IsNullOrWhiteSpace(selected))
             {
                 if(!selected.EndsWith(".img")){
@@ -67,10 +67,10 @@ namespace VM_Manager.Domain
         }
         public bool Execute() { return true; }
 
-        private void Pool_Combobox_SelectedIndexChanged(object sender, EventArgs e)
+        private void Pool_ListBox_SelectedIndexChanged(object sender, EventArgs e)
         { 
-            Volume_Combobox.Items.Clear();
-            var selected = Pool_Combobox.SelectedItem != null ? Pool_Combobox.SelectedItem.ToString() : "";
+            Volume_ListBox.Items.Clear();
+            var selected = Pool_ListBox.SelectedItem != null ? Pool_ListBox.SelectedItem.ToString() : "";
             if(string.IsNullOrWhiteSpace(selected))
                 return;
             using (var pool = _connection.virStoragePoolLookupByName(selected))
@@ -84,12 +84,14 @@ namespace VM_Manager.Domain
                         {
                             var volpath = item.virStorageVolGetPath();
                             if(volpath.EndsWith(".img"))
-                                Volume_Combobox.Items.Add(volpath);
+                                Volume_ListBox.Items.Add(volpath);
                             item.Dispose();
                         }
                     }
                 }
             }
         }
+
+   
     }
 }

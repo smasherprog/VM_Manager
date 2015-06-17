@@ -7,10 +7,14 @@ namespace VM_Manager.Domain.Model
 {
     public class Virtual_Machine
     {
-        public string Name { get; set; }
+        public General_Metadata Metadata { get; set; }
+        public BIOS_Bootloader BootLoader { get; set; }
+        public CPU_Layout CPU { get; set; }
+        public Memory_Allocation Memory { get; set; }
+        public Features System_Features { get; set; }
         public string iso_Path { get; set; }
-        public int Ram { get; set; }
-        public int Cpu { get; set; }
+       
+    
         public string storage_path { get; set; }
         public bool StartOnCreate { get; set; }
         public bool Created { get; set; }

@@ -16,6 +16,7 @@ namespace VM_Manager.Domain
         public Local_Media_Create(Libvirt.CS_Objects.Host con, Model.Virtual_Machine d)
         {
             InitializeComponent();
+            this.Dock = DockStyle.Fill;
             _connection = con;
             _Machine_Def = d;
             Init_Controls();
@@ -31,18 +32,18 @@ namespace VM_Manager.Domain
                 item.virStoragePoolGetInfo(out poolinfo);
                 var poolname = item.virStoragePoolGetName();
                 item.Dispose();
-                Pool_Combobox.Items.Add(poolname);
+                Pool_SelectBox.Items.Add(poolname);
             }
         }
         public bool Validate_Control()
         {
-            if(Volume_Combobox.Items.Count<0)
+            if(Volume_SelectBox.Items.Count<0)
             {
                 MessageBox.Show("You must select an ISO!");
                 return false;
             }
 
-            var selected = Volume_Combobox.SelectedItem != null ? Volume_Combobox.SelectedItem.ToString() : "";
+            var selected = Volume_SelectBox.SelectedItem != null ? Volume_SelectBox.SelectedItem.ToString() : "";
             if(!string.IsNullOrWhiteSpace(selected))
             {
                 if(!selected.EndsWith(".iso")){
@@ -62,24 +63,24 @@ namespace VM_Manager.Domain
         }
         public bool Execute() { return true; }
 
-        private void Pool_Combobox_SelectedIndexChanged(object sender, EventArgs e)
-        { 
-            Volume_Combobox.Items.Clear();
-            var selected = Pool_Combobox.SelectedItem != null ? Pool_Combobox.SelectedItem.ToString() : "";
-            if(string.IsNullOrWhiteSpace(selected))
+        private void Pool_SelectBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Volume_SelectBox.Items.Clear();
+            var selected = Pool_SelectBox.SelectedItem != null ? Pool_SelectBox.SelectedItem.ToString() : "";
+            if (string.IsNullOrWhiteSpace(selected))
                 return;
-            using(var pool = _connection.virStoragePoolLookupByName(selected))
+            using (var pool = _connection.virStoragePoolLookupByName(selected))
             {
-                if(pool.IsValid)
+                if (pool.IsValid)
                 {
                     Libvirt.CS_Objects.Storage_Volume[] volumes;
                     if (pool.virStoragePoolListAllVolumes(out volumes) > 0)
                     {
-                        foreach(var item in volumes)
+                        foreach (var item in volumes)
                         {
                             var volpath = item.virStorageVolGetPath();
-                            if(volpath.EndsWith(".iso"))
-                                Volume_Combobox.Items.Add(volpath);
+                            if (volpath.EndsWith(".iso"))
+                                Volume_SelectBox.Items.Add(volpath);
                             item.Dispose();
                         }
                     }

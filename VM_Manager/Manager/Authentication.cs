@@ -5,20 +5,16 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace VM_Manager.Domain
+namespace VM_Manager.Manager
 {
-    public partial class Details : Form
+    public partial class Authentication : Form
     {
-        public Details()
+        public Authentication()
         {
             InitializeComponent();
-        }
-
-        private void Details_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

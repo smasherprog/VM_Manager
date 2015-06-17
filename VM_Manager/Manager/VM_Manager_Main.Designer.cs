@@ -34,6 +34,13 @@
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.VM_ImageList = new System.Windows.Forms.ImageList(this.components);
             this.VM_Context_Strip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.VM_Manager_ContextStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.VM_Server_ContextStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.Pool_Contet_MenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.Pool_Listing_Context = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.VM_Listing_Context = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.connectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.startToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -44,24 +51,17 @@
             this.moveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.renameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.VM_Manager_ContextStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.connectToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.VM_Server_ContextStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.disconnectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.detailsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.Pool_Contet_MenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.newVolumeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.startToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.stopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.Pool_Listing_Context = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.VM_Listing_Context = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.newVMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.refreshToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.VM_Context_Strip.SuspendLayout();
             this.VM_Manager_ContextStrip.SuspendLayout();
             this.VM_Server_ContextStrip.SuspendLayout();
@@ -116,6 +116,57 @@
             this.VM_Context_Strip.Name = "VM_Context_Strup";
             this.VM_Context_Strip.Size = new System.Drawing.Size(130, 158);
             // 
+            // VM_Manager_ContextStrip
+            // 
+            this.VM_Manager_ContextStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.connectToolStripMenuItem1});
+            this.VM_Manager_ContextStrip.Name = "VM_Manager_ContextStrip";
+            this.VM_Manager_ContextStrip.Size = new System.Drawing.Size(169, 26);
+            // 
+            // VM_Server_ContextStrip
+            // 
+            this.VM_Server_ContextStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.disconnectToolStripMenuItem,
+            this.detailsToolStripMenuItem});
+            this.VM_Server_ContextStrip.Name = "VM_Server_ContextStrip";
+            this.VM_Server_ContextStrip.Size = new System.Drawing.Size(134, 48);
+            // 
+            // Pool_Contet_MenuStrip
+            // 
+            this.Pool_Contet_MenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newVolumeToolStripMenuItem,
+            this.startToolStripMenuItem1,
+            this.stopToolStripMenuItem,
+            this.deleteToolStripMenuItem1});
+            this.Pool_Contet_MenuStrip.Name = "Pool_Contet_MenuStrip";
+            this.Pool_Contet_MenuStrip.Size = new System.Drawing.Size(143, 92);
+            // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Location = new System.Drawing.Point(257, 13);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(896, 675);
+            this.panel1.TabIndex = 4;
+            // 
+            // Pool_Listing_Context
+            // 
+            this.Pool_Listing_Context.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newToolStripMenuItem,
+            this.refreshToolStripMenuItem});
+            this.Pool_Listing_Context.Name = "Pool_Listing_Context";
+            this.Pool_Listing_Context.Size = new System.Drawing.Size(126, 48);
+            // 
+            // VM_Listing_Context
+            // 
+            this.VM_Listing_Context.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newVMToolStripMenuItem,
+            this.refreshToolStripMenuItem1});
+            this.VM_Listing_Context.Name = "VM_Listing_Context";
+            this.VM_Listing_Context.Size = new System.Drawing.Size(120, 48);
+            // 
             // connectToolStripMenuItem
             // 
             this.connectToolStripMenuItem.Image = global::VM_Manager.Properties.Resources.connect_established;
@@ -130,6 +181,7 @@
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
             this.settingsToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
             this.settingsToolStripMenuItem.Text = "Settings";
+            this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
             // startToolStripMenuItem
             // 
@@ -196,13 +248,7 @@
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
             this.deleteToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
             this.deleteToolStripMenuItem.Text = "Delete";
-            // 
-            // VM_Manager_ContextStrip
-            // 
-            this.VM_Manager_ContextStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.connectToolStripMenuItem1});
-            this.VM_Manager_ContextStrip.Name = "VM_Manager_ContextStrip";
-            this.VM_Manager_ContextStrip.Size = new System.Drawing.Size(169, 26);
+            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
             // connectToolStripMenuItem1
             // 
@@ -211,14 +257,6 @@
             this.connectToolStripMenuItem1.Size = new System.Drawing.Size(168, 22);
             this.connectToolStripMenuItem1.Text = "Connect to Server";
             this.connectToolStripMenuItem1.Click += new System.EventHandler(this.connectToolStripMenuItem1_Click);
-            // 
-            // VM_Server_ContextStrip
-            // 
-            this.VM_Server_ContextStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.disconnectToolStripMenuItem,
-            this.detailsToolStripMenuItem});
-            this.VM_Server_ContextStrip.Name = "VM_Server_ContextStrip";
-            this.VM_Server_ContextStrip.Size = new System.Drawing.Size(134, 48);
             // 
             // disconnectToolStripMenuItem
             // 
@@ -235,16 +273,6 @@
             this.detailsToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.detailsToolStripMenuItem.Text = "Details";
             this.detailsToolStripMenuItem.Click += new System.EventHandler(this.detailsToolStripMenuItem_Click);
-            // 
-            // Pool_Contet_MenuStrip
-            // 
-            this.Pool_Contet_MenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.newVolumeToolStripMenuItem,
-            this.startToolStripMenuItem1,
-            this.stopToolStripMenuItem,
-            this.deleteToolStripMenuItem1});
-            this.Pool_Contet_MenuStrip.Name = "Pool_Contet_MenuStrip";
-            this.Pool_Contet_MenuStrip.Size = new System.Drawing.Size(143, 92);
             // 
             // newVolumeToolStripMenuItem
             // 
@@ -278,24 +306,6 @@
             this.deleteToolStripMenuItem1.Text = "Delete";
             this.deleteToolStripMenuItem1.Click += new System.EventHandler(this.deleteToolStripMenuItem1_Click);
             // 
-            // panel1
-            // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.Location = new System.Drawing.Point(257, 13);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(896, 675);
-            this.panel1.TabIndex = 4;
-            // 
-            // Pool_Listing_Context
-            // 
-            this.Pool_Listing_Context.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.newToolStripMenuItem,
-            this.refreshToolStripMenuItem});
-            this.Pool_Listing_Context.Name = "Pool_Listing_Context";
-            this.Pool_Listing_Context.Size = new System.Drawing.Size(126, 48);
-            // 
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Image = global::VM_Manager.Properties.Resources.add;
@@ -311,14 +321,6 @@
             this.refreshToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.refreshToolStripMenuItem.Text = "Refresh";
             this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
-            // 
-            // VM_Listing_Context
-            // 
-            this.VM_Listing_Context.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.newVMToolStripMenuItem,
-            this.refreshToolStripMenuItem1});
-            this.VM_Listing_Context.Name = "VM_Listing_Context";
-            this.VM_Listing_Context.Size = new System.Drawing.Size(120, 48);
             // 
             // newVMToolStripMenuItem
             // 

@@ -1,6 +1,6 @@
-﻿namespace VM_Manager.Domain
+﻿namespace VM_Manager.Domain.Settings
 {
-    partial class Domain_Details
+    partial class Processor
     {
         /// <summary> 
         /// Required designer variable.
@@ -13,7 +13,7 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if(disposing && (components != null))
+            if (disposing && (components != null))
             {
                 components.Dispose();
             }
@@ -30,16 +30,17 @@
         {
             this.SuspendLayout();
             // 
-            // Domain_Details
+            // Processor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Name = "Domain_Details";
-            this.Size = new System.Drawing.Size(428, 485);
+            this.Name = "Processor";
+            this.Size = new System.Drawing.Size(733, 600);
             this.ResumeLayout(false);
 
         }
 
         #endregion
+
     }
 }

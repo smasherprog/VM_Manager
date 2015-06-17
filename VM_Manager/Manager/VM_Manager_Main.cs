@@ -686,5 +686,16 @@ namespace VM_Manager.Manager
 
             }
         }
+
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var f = new VM_Manager.Domain.Settings.Main_Form();
+            f.Show();
+        }
     }
 }

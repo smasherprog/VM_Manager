@@ -12,7 +12,7 @@
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <NuGetPackageImportStamp>e5b0ad05</NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>19452761</NuGetPackageImportStamp>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <PublishUrl>publish\</PublishUrl>
@@ -96,7 +96,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Libvirt_Pinvoke, Version=1.2.17.11, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Libvirt_Pinvoke.1.2.17.14\lib\net40\Libvirt_Pinvoke.dll</HintPath>
+      <HintPath>..\packages\Libvirt_Pinvoke.1.2.17.15\lib\net40\Libvirt_Pinvoke.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -116,6 +116,7 @@
       <DependentUpon>Add_Domain.cs</DependentUpon>
     </Compile>
     <Compile Include="Domain\API\Service.cs" />
+    <Compile Include="Domain\API\VM_Builder.cs" />
     <Compile Include="Domain\Config\Overview.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -128,23 +129,34 @@
     <Compile Include="Domain\Cpu_Ram_Create.Designer.cs">
       <DependentUpon>Cpu_Ram_Create.cs</DependentUpon>
     </Compile>
-    <Compile Include="Domain\Details.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Domain\Details.Designer.cs">
-      <DependentUpon>Details.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Domain\Domain_Details.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Domain\Domain_Details.Designer.cs">
-      <DependentUpon>Domain_Details.cs</DependentUpon>
-    </Compile>
     <Compile Include="Domain\List_Virtual_Machines.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Domain\List_Virtual_Machines.Designer.cs">
       <DependentUpon>List_Virtual_Machines.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\Model\BIOS_Bootloader.cs" />
+    <Compile Include="Domain\Model\CPU_Layout.cs" />
+    <Compile Include="Domain\Model\Features.cs" />
+    <Compile Include="Domain\Model\General_Metadata.cs" />
+    <Compile Include="Domain\Model\Memory_Allocation.cs" />
+    <Compile Include="Domain\Settings\General.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Domain\Settings\General.Designer.cs">
+      <DependentUpon>General.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\Settings\Main_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Domain\Settings\Main_Form.Designer.cs">
+      <DependentUpon>Main_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Domain\Settings\Processor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Domain\Settings\Processor.Designer.cs">
+      <DependentUpon>Processor.cs</DependentUpon>
     </Compile>
     <Compile Include="Domain\Storage_Create.cs">
       <SubType>UserControl</SubType>
@@ -165,6 +177,12 @@
       <DependentUpon>Create_First_Step.cs</DependentUpon>
     </Compile>
     <Compile Include="Domain\Model\Virtual_Machine.cs" />
+    <Compile Include="Manager\Authentication.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Manager\Authentication.Designer.cs">
+      <DependentUpon>Authentication.cs</DependentUpon>
+    </Compile>
     <Compile Include="Manager\Server_Listing.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -246,14 +264,17 @@
     <EmbeddedResource Include="Domain\Cpu_Ram_Create.resx">
       <DependentUpon>Cpu_Ram_Create.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Domain\Details.resx">
-      <DependentUpon>Details.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Domain\Domain_Details.resx">
-      <DependentUpon>Domain_Details.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Domain\List_Virtual_Machines.resx">
       <DependentUpon>List_Virtual_Machines.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Domain\Settings\General.resx">
+      <DependentUpon>General.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Domain\Settings\Main_Form.resx">
+      <DependentUpon>Main_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Domain\Settings\Processor.resx">
+      <DependentUpon>Processor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Domain\Storage_Create.resx">
       <DependentUpon>Storage_Create.cs</DependentUpon>
@@ -263,6 +284,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Domain\Create_First_Step.resx">
       <DependentUpon>Create_First_Step.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Manager\Authentication.resx">
+      <DependentUpon>Authentication.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Manager\Server_Listing.resx">
       <DependentUpon>Server_Listing.cs</DependentUpon>
@@ -322,6 +346,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\monitor_1.png" />
     <Content Include="x64\iconv.dll" />
     <Content Include="x64\libcrypto-10.dll" />
     <Content Include="x64\libcurl-4.dll" />
@@ -414,12 +439,12 @@
     </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\packages\Libvirt_Pinvoke.1.2.17.14\build\Libvirt_Pinvoke.targets" Condition="Exists('..\packages\Libvirt_Pinvoke.1.2.17.14\build\Libvirt_Pinvoke.targets')" />
+  <Import Project="..\packages\Libvirt_Pinvoke.1.2.17.15\build\Libvirt_Pinvoke.targets" Condition="Exists('..\packages\Libvirt_Pinvoke.1.2.17.15\build\Libvirt_Pinvoke.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Libvirt_Pinvoke.1.2.17.14\build\Libvirt_Pinvoke.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Libvirt_Pinvoke.1.2.17.14\build\Libvirt_Pinvoke.targets'))" />
+    <Error Condition="!Exists('..\packages\Libvirt_Pinvoke.1.2.17.15\build\Libvirt_Pinvoke.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Libvirt_Pinvoke.1.2.17.15\build\Libvirt_Pinvoke.targets'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
