@@ -6,10 +6,11 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using VM_Manager.Utilities;
 
 namespace VM_Manager.Storage
 {
-    public partial class NetFS_Create : UserControl, VM_Manager.Utilities.MultiStepBase
+    public partial class NetFS_Create : UserControl, Dialog_Helper
     {
         private Libvirt.CS_Objects.Host _connection;
         private string _poolname;
@@ -19,7 +20,14 @@ namespace VM_Manager.Storage
             _connection = con;
             _poolname = name;
         }
-
+        public UserControl Forward()
+        {
+            return null;
+        }
+        public UserControl Back()
+        {
+            return null;
+        }
         public bool Validate_Control()
         {
             if (string.IsNullOrWhiteSpace(Target_Path_txt_bx.Text))

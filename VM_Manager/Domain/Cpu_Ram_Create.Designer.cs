@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -35,8 +36,10 @@
             this.CPU_num = new System.Windows.Forms.NumericUpDown();
             this.Available_Memory_txt = new System.Windows.Forms.Label();
             this.Available_CPUs_txt = new System.Windows.Forms.Label();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.Memory_num)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.CPU_num)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -80,7 +83,7 @@
             0,
             0});
             this.Memory_num.Minimum = new decimal(new int[] {
-            512,
+            128,
             0,
             0,
             0});
@@ -128,6 +131,10 @@
             this.Available_CPUs_txt.TabIndex = 12;
             this.Available_CPUs_txt.Text = "Up to 2 available";
             // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
             // Cpu_Ram_Create
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -143,6 +150,7 @@
             this.Size = new System.Drawing.Size(291, 107);
             ((System.ComponentModel.ISupportInitialize)(this.Memory_num)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.CPU_num)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -157,5 +165,6 @@
         private System.Windows.Forms.NumericUpDown CPU_num;
         private System.Windows.Forms.Label Available_Memory_txt;
         private System.Windows.Forms.Label Available_CPUs_txt;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

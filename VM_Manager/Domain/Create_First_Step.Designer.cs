@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -36,6 +37,10 @@
             this.Network_Install = new System.Windows.Forms.RadioButton();
             this.PXE_Install = new System.Windows.Forms.RadioButton();
             this.Import_Disk_Install = new System.Windows.Forms.RadioButton();
+            this.generalMetadataBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.generalMetadataBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // label2
@@ -121,6 +126,14 @@
             this.Import_Disk_Install.Text = "Import exisiting disk image";
             this.Import_Disk_Install.UseVisualStyleBackColor = true;
             // 
+            // generalMetadataBindingSource
+            // 
+            this.generalMetadataBindingSource.DataSource = typeof(Libvirt.Models.Concrete.General_Metadata);
+            // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
             // Create_First_Step
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -135,6 +148,8 @@
             this.Controls.Add(this.label2);
             this.Name = "Create_First_Step";
             this.Size = new System.Drawing.Size(404, 163);
+            ((System.ComponentModel.ISupportInitialize)(this.generalMetadataBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -150,5 +165,7 @@
         private System.Windows.Forms.RadioButton Network_Install;
         private System.Windows.Forms.RadioButton PXE_Install;
         private System.Windows.Forms.RadioButton Import_Disk_Install;
+        private System.Windows.Forms.BindingSource generalMetadataBindingSource;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

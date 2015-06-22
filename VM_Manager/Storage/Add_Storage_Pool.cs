@@ -23,21 +23,22 @@ namespace VM_Manager.Storage
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            var contr = _CurrentControl as VM_Manager.Utilities.MultiStepBase;
-            if(contr != null && contr.Validate_Control())
+            var contr = _CurrentControl as VM_Manager.Utilities.Dialog_Helper;
+            if (contr != null)
             {
-                if(contr.Execute())
+                var next = contr.Forward();
+                if (next != null)
                 {
-                    var next = contr.Next();
-                    this.button1.Text = "Finish";
-                    panel1.Controls.Remove(_CurrentControl);
-                    if(next != null)
+                    if (next.GetType() == typeof(VM_Manager.Utilities.End_Control))
+                    {//reached the end.. close dialog
+                        this.Close();//all done
+                    }
+                    else
                     {
+                        panel1.Controls.Remove(_CurrentControl);
+                        this.button1.Text = "Finish";
                         _CurrentControl = next;
                         panel1.Controls.Add(_CurrentControl);
-                    } else
-                    {
-                        this.Close();//all done
                     }
                 }
             }
@@ -46,6 +47,25 @@ namespace VM_Manager.Storage
         private void button3_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            var contr = _CurrentControl as VM_Manager.Utilities.Dialog_Helper;
+            if (contr != null)
+            {
+                var next = contr.Back();
+                if (next != null)
+                {
+                    if (next.GetType() != typeof(VM_Manager.Utilities.End_Control))
+                    {
+                        panel1.Controls.Remove(_CurrentControl);
+                        this.button1.Text = "Forward";
+                        _CurrentControl = next;
+                        panel1.Controls.Add(_CurrentControl);
+                    }
+                }
+            }
         }
     }
 }

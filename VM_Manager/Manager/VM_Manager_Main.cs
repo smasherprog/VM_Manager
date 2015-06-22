@@ -26,8 +26,8 @@ namespace VM_Manager.Manager
         }
         void virErrorFunc(IntPtr userData, Libvirt.virErrorPtr error)
         {
-            var realerror = Libvirt.API.MarshalErrorPtr(error);
-            Debug.WriteLine(realerror.message);
+            var f = new Error_Dialog(Libvirt.API.MarshalErrorPtr(error));
+            f.Show();
         }
 
         void VM_Manager_Main_FormClosing(object sender, FormClosingEventArgs e)
@@ -253,7 +253,7 @@ namespace VM_Manager.Manager
                 if (force_refresh)
                 {
                     item.virStoragePoolRefresh();
-                 
+
                 }
                 var poolnode = new TreeNode(item.virStoragePoolGetName(), 3, 3);
                 poolnode.Name = "Pool";
@@ -283,13 +283,13 @@ namespace VM_Manager.Manager
         }
         private void PopulateVMs(TreeNode parent, Libvirt.CS_Objects.Host ptr)
         {
-            Libvirt.virDomainPtr[] vms;
+            Libvirt.CS_Objects.Domain[] vms;
             ptr.virConnectListAllDomains(out vms, Libvirt.virConnectListAllDomainsFlags.VIR_CONNECT_LIST_DOMAINS_ACTIVE | Libvirt.virConnectListAllDomainsFlags.VIR_CONNECT_LIST_DOMAINS_INACTIVE);
             foreach (var item in vms)
             {
-                var name = Libvirt.API.virDomainGetName(item);
+                var name = item.virDomainGetName();
                 Libvirt._virDomainInfo info;
-                Libvirt.API.virDomainGetInfo(item, out info);
+                item.virDomainGetInfo(out info);
                 var imgindex = info.state == Libvirt.virDomainState.VIR_DOMAIN_RUNNING ? 4 : 5;
                 var poolnode = new TreeNode(name, imgindex, imgindex);
                 poolnode.Name = "VM";
@@ -494,14 +494,13 @@ namespace VM_Manager.Manager
                 var f = new VM_Manager.Domain.Add_Domain(con);
                 f.OnVM_Create_Attempt = (a) =>
                 {
-                    if (a.Created)
-                    {
-                        var imgindex = a.StartOnCreate ? 4 : 5;
-                        var poolnode = new TreeNode(a.Name, imgindex, imgindex);
-                        poolnode.Name = "VM";
-                        poolnode.Tag = treeView1.SelectedNode.Tag;
-                        treeView1.SelectedNode.Nodes.Add(poolnode);
-                    }
+
+                    var imgindex = 4;
+                    var poolnode = new TreeNode(a.Metadata.name, imgindex, imgindex);
+                    poolnode.Name = "VM";
+                    poolnode.Tag = treeView1.SelectedNode.Tag;
+                    treeView1.SelectedNode.Nodes.Add(poolnode);
+
                 };
                 f.ShowDialog();
             }

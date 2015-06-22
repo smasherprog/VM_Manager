@@ -12,7 +12,7 @@
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <NuGetPackageImportStamp>19452761</NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>4e65ac28</NuGetPackageImportStamp>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <PublishUrl>publish\</PublishUrl>
@@ -96,7 +96,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Libvirt_Pinvoke, Version=1.2.17.11, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Libvirt_Pinvoke.1.2.17.15\lib\net40\Libvirt_Pinvoke.dll</HintPath>
+      <HintPath>..\packages\Libvirt_Pinvoke.1.2.17.16\lib\net40\Libvirt_Pinvoke.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -115,8 +115,6 @@
     <Compile Include="Domain\Add_Domain.Designer.cs">
       <DependentUpon>Add_Domain.cs</DependentUpon>
     </Compile>
-    <Compile Include="Domain\API\Service.cs" />
-    <Compile Include="Domain\API\VM_Builder.cs" />
     <Compile Include="Domain\Config\Overview.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -129,17 +127,16 @@
     <Compile Include="Domain\Cpu_Ram_Create.Designer.cs">
       <DependentUpon>Cpu_Ram_Create.cs</DependentUpon>
     </Compile>
+    <Compile Include="Domain\Cpu_Ram_Create_Model.cs" />
+    <Compile Include="Domain\Storage_Create_Model.cs" />
+    <Compile Include="Domain\Local_Media_Create_Model.cs" />
+    <Compile Include="Domain\Create_First_Step_Model.cs" />
     <Compile Include="Domain\List_Virtual_Machines.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Domain\List_Virtual_Machines.Designer.cs">
       <DependentUpon>List_Virtual_Machines.cs</DependentUpon>
     </Compile>
-    <Compile Include="Domain\Model\BIOS_Bootloader.cs" />
-    <Compile Include="Domain\Model\CPU_Layout.cs" />
-    <Compile Include="Domain\Model\Features.cs" />
-    <Compile Include="Domain\Model\General_Metadata.cs" />
-    <Compile Include="Domain\Model\Memory_Allocation.cs" />
     <Compile Include="Domain\Settings\General.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -176,12 +173,17 @@
     <Compile Include="Domain\Create_First_Step.Designer.cs">
       <DependentUpon>Create_First_Step.cs</DependentUpon>
     </Compile>
-    <Compile Include="Domain\Model\Virtual_Machine.cs" />
     <Compile Include="Manager\Authentication.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Manager\Authentication.Designer.cs">
       <DependentUpon>Authentication.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Manager\Error_Dialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Manager\Error_Dialog.Designer.cs">
+      <DependentUpon>Error_Dialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Manager\Server_Listing.cs">
       <SubType>UserControl</SubType>
@@ -251,10 +253,14 @@
     <Compile Include="Storage\Upload_Progress.Designer.cs">
       <DependentUpon>Upload_Progress.cs</DependentUpon>
     </Compile>
+    <Compile Include="Utilities\Binder.cs" />
     <Compile Include="Utilities\Console.cs" />
+    <Compile Include="Utilities\Dialog_Helper.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Utilities\Formatting.cs" />
     <Compile Include="Utilities\Libvirt_EventLoop.cs" />
-    <Compile Include="Utilities\MultiStepBase.cs" />
+    <Compile Include="Domain\MultiStepBase.cs" />
     <EmbeddedResource Include="Domain\Add_Domain.resx">
       <DependentUpon>Add_Domain.cs</DependentUpon>
     </EmbeddedResource>
@@ -287,6 +293,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Manager\Authentication.resx">
       <DependentUpon>Authentication.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Manager\Error_Dialog.resx">
+      <DependentUpon>Error_Dialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Manager\Server_Listing.resx">
       <DependentUpon>Server_Listing.cs</DependentUpon>
@@ -346,7 +355,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\monitor_1.png" />
     <Content Include="x64\iconv.dll" />
     <Content Include="x64\libcrypto-10.dll" />
     <Content Include="x64\libcurl-4.dll" />
@@ -393,6 +401,7 @@
     <Content Include="x86\libxml2-2.dll" />
     <Content Include="x86\virsh.exe" />
     <Content Include="x86\zlib1.dll" />
+    <None Include="Resources\monitor_1.png" />
     <None Include="Resources\player_play.png" />
     <None Include="Resources\shutdown.png" />
     <None Include="Resources\exit %281%29.png" />
@@ -438,13 +447,14 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\packages\Libvirt_Pinvoke.1.2.17.15\build\Libvirt_Pinvoke.targets" Condition="Exists('..\packages\Libvirt_Pinvoke.1.2.17.15\build\Libvirt_Pinvoke.targets')" />
+  <Import Project="..\packages\Libvirt_Pinvoke.1.2.17.16\build\Libvirt_Pinvoke.targets" Condition="Exists('..\packages\Libvirt_Pinvoke.1.2.17.16\build\Libvirt_Pinvoke.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Libvirt_Pinvoke.1.2.17.15\build\Libvirt_Pinvoke.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Libvirt_Pinvoke.1.2.17.15\build\Libvirt_Pinvoke.targets'))" />
+    <Error Condition="!Exists('..\packages\Libvirt_Pinvoke.1.2.17.16\build\Libvirt_Pinvoke.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Libvirt_Pinvoke.1.2.17.16\build\Libvirt_Pinvoke.targets'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

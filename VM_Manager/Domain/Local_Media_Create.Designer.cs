@@ -28,12 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.Pool_SelectBox = new System.Windows.Forms.ListBox();
             this.Volume_SelectBox = new System.Windows.Forms.ListBox();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -92,6 +95,10 @@
             this.Volume_SelectBox.Size = new System.Drawing.Size(448, 95);
             this.Volume_SelectBox.TabIndex = 19;
             // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
             // Local_Media_Create
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -104,6 +111,7 @@
             this.Controls.Add(this.label1);
             this.Name = "Local_Media_Create";
             this.Size = new System.Drawing.Size(515, 233);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -117,5 +125,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ListBox Pool_SelectBox;
         private System.Windows.Forms.ListBox Volume_SelectBox;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

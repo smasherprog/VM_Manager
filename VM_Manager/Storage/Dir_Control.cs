@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace VM_Manager.Storage
 {
-    public partial class Dir_Control : UserControl, VM_Manager.Utilities.MultiStepBase
+    public partial class Dir_Control : UserControl, VM_Manager.Utilities.Dialog_Helper
     {
         private Libvirt.CS_Objects.Host _connection;
         private string _poolname;
@@ -19,7 +19,14 @@ namespace VM_Manager.Storage
             _connection = con;
             _poolname = name;
         }
-
+        public UserControl Forward()
+        {
+            return null;
+        }
+        public UserControl Back()
+        {
+            return null;
+        }
         public bool Validate_Control()
         {
             if(string.IsNullOrWhiteSpace(textBox1.Text))

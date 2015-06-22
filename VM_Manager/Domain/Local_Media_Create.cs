@@ -6,25 +6,63 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using VM_Manager.Utilities;
 
 namespace VM_Manager.Domain
 {
-    public partial class Local_Media_Create : UserControl, VM_Manager.Utilities.MultiStepBase
+    public partial class Local_Media_Create : UserControl, Dialog_Helper
     {
-        private Libvirt.CS_Objects.Host _connection;
-        private Model.Virtual_Machine _Machine_Def;
-        public Local_Media_Create(Libvirt.CS_Objects.Host con, Model.Virtual_Machine d)
+        private View_Model_To_Service _Local_Media_Create_Model;
+        private UserControl _Previous;
+        public Local_Media_Create(UserControl p, Libvirt.CS_Objects.Host con, Libvirt.Models.Concrete.Virtual_Machine d)
         {
             InitializeComponent();
-            this.Dock = DockStyle.Fill;
-            _connection = con;
-            _Machine_Def = d;
-            Init_Controls();
+            this.Dock = DockStyle.Fill; 
+            _Previous = p;
+            _Local_Media_Create_Model = new Local_Media_Create_Model(con, d);  
+            Init_Controls();          
+        }
+        public UserControl Forward()
+        {
+            _Local_Media_Create_Model.Machine_Definition.Devices.Clear();//remove any previous devices
+            var de = new Libvirt.Models.Concrete.Device();
+            de.Device_Bus_Type = Libvirt.Models.Concrete.Device.Device_Bus_Types.virtio;
+            de.Device_Device_Type = Libvirt.Models.Concrete.Device.Device_Device_Types.cdrom;
+            de.Device_Type = Libvirt.Models.Concrete.Device.Device_Types.volume;
+            de.Driver_Cache_Type = Libvirt.Models.Concrete.Device.Driver_Cache_Types._default;
+            de.Driver_Type = Libvirt.Models.Concrete.Device.Driver_Types.raw;
+            de.ReadOnly = true;
+            de.Snapshot_Type = Libvirt.Models.Concrete.Device.Snapshot_Types._default;
+            var source = new Libvirt.Models.Concrete.Device_Source_Volume();
+            source.pool = Pool_SelectBox.SelectedItem != null ? Pool_SelectBox.SelectedItem.ToString() : "";
+            source.volume = Volume_SelectBox.SelectedItem != null ? Volume_SelectBox.SelectedItem.ToString() : "";
+            source.Source_Startup_Policy = Libvirt.Models.Concrete.Device.Source_Startup_Policies.optional;
+            de.Source = source;
+            _Local_Media_Create_Model.Machine_Definition.Devices.Add(de);// add this .. NOW VALIDATE!!
+            if (_Local_Media_Create_Model.Validate())
+            {
+                return new Cpu_Ram_Create(this, _Local_Media_Create_Model.Connection, _Local_Media_Create_Model.Machine_Definition);
+            }
+            else
+            {
+                foreach (var item in _Local_Media_Create_Model.Errors)
+                {
+                    foreach (var r in item.Value)
+                    {
+                        errorProvider1.SetError(Volume_SelectBox, r);
+                    }
+                }
+            }
+            return null;
+        }
+        public UserControl Back()
+        {
+            return _Previous;
         }
         private void Init_Controls()
         {
             Libvirt.CS_Objects.Storage_Pool[] pools;
-            _connection.virConnectListAllStoragePools(out pools, Libvirt.virConnectListAllStoragePoolsFlags.VIR_CONNECT_LIST_STORAGE_POOLS_ACTIVE);
+            _Local_Media_Create_Model.Connection.virConnectListAllStoragePools(out pools, Libvirt.virConnectListAllStoragePoolsFlags.VIR_CONNECT_LIST_STORAGE_POOLS_ACTIVE);
 
             foreach(var item in pools)
             {
@@ -35,33 +73,6 @@ namespace VM_Manager.Domain
                 Pool_SelectBox.Items.Add(poolname);
             }
         }
-        public bool Validate_Control()
-        {
-            if(Volume_SelectBox.Items.Count<0)
-            {
-                MessageBox.Show("You must select an ISO!");
-                return false;
-            }
-
-            var selected = Volume_SelectBox.SelectedItem != null ? Volume_SelectBox.SelectedItem.ToString() : "";
-            if(!string.IsNullOrWhiteSpace(selected))
-            {
-                if(!selected.EndsWith(".iso")){
-                    MessageBox.Show("You must select an ISO!");
-                    return false;
-                }
-            } else {
-                MessageBox.Show("You must select an ISO!");
-                return false;
-            }
-            _Machine_Def.iso_Path = selected;
-            return true;
-        }
-        public UserControl Next()
-        {
-            return new Cpu_Ram_Create(_connection, _Machine_Def);
-        }
-        public bool Execute() { return true; }
 
         private void Pool_SelectBox_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -69,7 +80,7 @@ namespace VM_Manager.Domain
             var selected = Pool_SelectBox.SelectedItem != null ? Pool_SelectBox.SelectedItem.ToString() : "";
             if (string.IsNullOrWhiteSpace(selected))
                 return;
-            using (var pool = _connection.virStoragePoolLookupByName(selected))
+            using (var pool = _Local_Media_Create_Model.Connection.virStoragePoolLookupByName(selected))
             {
                 if (pool.IsValid)
                 {
@@ -80,7 +91,7 @@ namespace VM_Manager.Domain
                         {
                             var volpath = item.virStorageVolGetPath();
                             if (volpath.EndsWith(".iso"))
-                                Volume_SelectBox.Items.Add(volpath);
+                                Volume_SelectBox.Items.Add(item.virStorageVolGetName());
                             item.Dispose();
                         }
                     }

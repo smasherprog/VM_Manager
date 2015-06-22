@@ -6,10 +6,11 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using VM_Manager.Utilities;
 
 namespace VM_Manager.Storage
 {
-    public partial class Create_First_Step : UserControl, VM_Manager.Utilities.MultiStepBase
+    public partial class Create_First_Step : UserControl, Dialog_Helper
     {
         private Libvirt.CS_Objects.Host _connection;
         public Create_First_Step(Libvirt.CS_Objects.Host con)
@@ -17,7 +18,14 @@ namespace VM_Manager.Storage
             InitializeComponent();
             _connection = con;
         }
-
+        public UserControl Forward()
+        {
+            return null;
+        }
+        public UserControl Back()
+        {
+            return null;
+        }
         public bool Validate_Control()
         {
             if (string.IsNullOrWhiteSpace(textBox1.Text))

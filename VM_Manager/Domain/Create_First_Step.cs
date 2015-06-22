@@ -6,60 +6,50 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using VM_Manager.Utilities;
 
 namespace VM_Manager.Domain
 {
-    public partial class Create_First_Step : UserControl, VM_Manager.Utilities.MultiStepBase
+    public partial class Create_First_Step : UserControl, Dialog_Helper
     {
-        private Libvirt.CS_Objects.Host _connection;
-        private Model.Virtual_Machine _Machine_Def;
-        public Create_First_Step(Libvirt.CS_Objects.Host con, Model.Virtual_Machine d)
+        private View_Model_To_Service _Create_First_Step_Model;
+        private UserControl _Previous;
+        public Create_First_Step(UserControl p, Libvirt.CS_Objects.Host con, Libvirt.Models.Concrete.Virtual_Machine d)
         {
-            InitializeComponent();
-            _connection = con;
-            _Machine_Def = d;
-        }
+            InitializeComponent(); 
+            this.Dock = DockStyle.Fill;
+            _Previous = p;
+            _Create_First_Step_Model = new Create_First_Step_Model(con, d);
+            textBox2.DataBindings.Add(
+                Safe_Property.GetPropertyInfo(textBox2, a => a.Text).Name,
+                d.Metadata,
+                Safe_Property.GetPropertyInfo(d.Metadata, a => a.name).Name, false, DataSourceUpdateMode.OnPropertyChanged);
 
-        public bool Validate_Control()
+
+
+        }
+        public UserControl Forward()
         {
-            if(string.IsNullOrWhiteSpace(textBox2.Text))
+            if (_Create_First_Step_Model.Validate())
             {
-                MessageBox.Show("Name cannot be empty!");
-                return false;
-            }
-            foreach(var item in textBox2.Text)
-            {
-                if(!Char.IsLetter(item) && item != '_')
+                if (Local_Install.Checked)
                 {
-                    MessageBox.Show("Name can only contain letters or underscores!");
-                    return false;
+                    return new Local_Media_Create(this, _Create_First_Step_Model.Connection, _Create_First_Step_Model.Machine_Definition);
                 }
             }
-
-            using (var pool = _connection.virDomainLookupByName(textBox2.Text))
+            else
             {
-                if(pool.IsValid)
-                {
-                    MessageBox.Show("A VM with that name already exists, try another!");
-                    return false;
+                foreach(var item in _Create_First_Step_Model.Errors){
+                    foreach(var r in item.Value){
+                        errorProvider1.SetError(textBox2, r);
+                    }
                 }
             }
-            _Machine_Def.Name = textBox2.Text;
-            return true;
+            return null;
         }
-        public UserControl Next()
+        public UserControl Back()
         {
-            if(Local_Install.Checked)
-            {
-                return new Local_Media_Create(_connection, _Machine_Def);
-            }
-            return null;//NOT IMPLEMENTED YET!!
-           
+            return _Previous;
         }
-        public bool Execute() { 
-            
-            return true; 
-        }
-
     }
 }
