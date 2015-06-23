@@ -8,10 +8,11 @@ namespace VM_Manager.Domain
 {
     public class Storage_Create_Model : View_Model_To_Service
     {
+        private Libvirt.Service.Interface.IService_Validator<Libvirt.Models.Concrete.Device, Libvirt.CS_Objects.Host> _Device_Validator;
         public Storage_Create_Model(Libvirt.CS_Objects.Host con, Libvirt.Models.Concrete.Virtual_Machine d)
             : base(con, d)
         {
-
+            _Device_Validator = new Libvirt.Service.Concrete.Device_Validator();
         }
         protected override bool Validate(Libvirt.Models.Interface.IValdiator v)
         {
@@ -20,20 +21,7 @@ namespace VM_Manager.Domain
                 item.Validate(v);
                 if (v.IsValid())
                 {
-                    if (item.Source.GetType() == typeof(Libvirt.Models.Concrete.Device_Source_Volume))
-                    {
-                        var src = item.Source as Libvirt.Models.Concrete.Device_Source_Volume;
-                        using (var pool = Connection.virStoragePoolLookupByName(src.pool))
-                        {
-
-                            if (!pool.IsValid) v.AddError("Device_Source_Volume.pool", "Pool is invalid!");
-
-                            using (var volume = pool.virStorageVolLookupByName(src.volume))
-                            {
-                                if (!volume.IsValid) v.AddError("Device_Source_Volume.volume", "Volume is invalid!");
-                            }
-                        }
-                    }
+                    _Device_Validator.Validate(v, item, Connection);
                 }
             }
             return v.IsValid();

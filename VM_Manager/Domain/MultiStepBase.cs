@@ -18,13 +18,14 @@ namespace VM_Manager.Domain
         public Libvirt.CS_Objects.Host Connection { get { return _Connection; } }
         protected Libvirt.Models.Concrete.Virtual_Machine _Machine_Definition;
         public Libvirt.Models.Concrete.Virtual_Machine Machine_Definition { get { return _Machine_Definition; } }
-     
+      
         public View_Model_To_Service(Libvirt.CS_Objects.Host con, Libvirt.Models.Concrete.Virtual_Machine d)
         {
             _Validation_Errors = new Dictionary<string, List<string>>();
             Model_State = new Libvirt.Models.Concrete.Validator(_Validation_Errors);
             _Connection = con;
             _Machine_Definition = d;
+ 
 
         }
         public bool Validate()
