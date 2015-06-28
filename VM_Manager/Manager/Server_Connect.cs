@@ -19,6 +19,8 @@ namespace VM_Manager.Manager
         {
             InitializeComponent();
             _authcallback = virConnectAuthCallback;
+            comboBox1.SelectedIndex = 0; 
+            comboBox2.SelectedIndex = 0;
         }
 
         private int virConnectAuthCallback(ref Libvirt._virConnectCredential[] cred, uint ncred, IntPtr cbdata)

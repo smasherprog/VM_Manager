@@ -693,8 +693,13 @@ namespace VM_Manager.Manager
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var f = new VM_Manager.Domain.Settings.Main_Form();
-            f.Show();
+            if (treeView1.SelectedNode != null)
+            {
+                var con = treeView1.SelectedNode.Tag as Libvirt.CS_Objects.Host;
+                if (con == null) return;
+                var f = new VM_Manager.Domain.Settings.Main_Form(con, treeView1.SelectedNode.Text);
+                f.Show();
+            }
         }
     }
 }

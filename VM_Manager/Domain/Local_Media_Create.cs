@@ -24,7 +24,7 @@ namespace VM_Manager.Domain
         }
         public UserControl Forward()
         {
-            _Local_Media_Create_Model.Machine_Definition.Devices.Clear();//remove any previous devices
+            _Local_Media_Create_Model.Machine_Definition.Devices.Devices.Clear();//remove any previous devices
             var de = new Libvirt.Models.Concrete.Device();
             de.Device_Bus_Type = Libvirt.Models.Concrete.Device.Device_Bus_Types.virtio;
             de.Device_Device_Type = Libvirt.Models.Concrete.Device.Device_Device_Types.cdrom;

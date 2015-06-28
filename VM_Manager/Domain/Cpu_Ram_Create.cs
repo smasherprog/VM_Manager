@@ -25,7 +25,7 @@ namespace VM_Manager.Domain
             Memory_num.DataBindings.Add(
                 Safe_Property.GetPropertyInfo(Memory_num, a => a.Value).Name,
                 d.Memory,
-                Safe_Property.GetPropertyInfo(d.Memory, a => a.maxMemory).Name, false, DataSourceUpdateMode.OnPropertyChanged);
+                Safe_Property.GetPropertyInfo(d.Memory, a => a.memory).Name, false, DataSourceUpdateMode.OnPropertyChanged);
             CPU_num.DataBindings.Add(
                 Safe_Property.GetPropertyInfo(CPU_num, a => a.Value).Name,
                 d.CPU,

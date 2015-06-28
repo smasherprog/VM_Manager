@@ -16,7 +16,7 @@ namespace VM_Manager.Domain
         }
         protected override bool Validate(Libvirt.Models.Interface.IValdiator v)
         {
-            foreach (var item in _Machine_Definition.Devices)
+            foreach (var item in _Machine_Definition.Devices.Devices)
             {
                 item.Validate(v);
                 if (v.IsValid())

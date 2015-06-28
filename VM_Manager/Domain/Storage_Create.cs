@@ -26,9 +26,9 @@ namespace VM_Manager.Domain
         }
         public UserControl Forward()
         {
-    
-           var previtem= _Storage_Create_Model.Machine_Definition.Devices.FirstOrDefault();
-           _Storage_Create_Model.Machine_Definition.Devices.Clear();// clear everything 
+
+            var previtem = _Storage_Create_Model.Machine_Definition.Devices.Devices.FirstOrDefault();
+            _Storage_Create_Model.Machine_Definition.Devices.Devices.Clear();// clear everything 
             var de = new Libvirt.Models.Concrete.Device();
             de.Device_Bus_Type = Libvirt.Models.Concrete.Device.Device_Bus_Types.virtio;
             de.Device_Device_Type = Libvirt.Models.Concrete.Device.Device_Device_Types.disk;
@@ -81,7 +81,7 @@ namespace VM_Manager.Domain
             }
             else
             {
-                _Storage_Create_Model.Machine_Definition.Devices.Clear();// clear everything, bad attempt
+                _Storage_Create_Model.Machine_Definition.Devices.Devices.Clear();// clear everything, bad attempt
             }
 
 
