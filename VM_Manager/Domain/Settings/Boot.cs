@@ -10,10 +10,10 @@ using System.Windows.Forms;
 
 namespace VM_Manager.Domain.Settings
 {
-    public partial class General : UserControl
+    public partial class Boot : UserControl
     {
         private Libvirt.Models.Concrete.Virtual_Machine _VM;
-        public General(Libvirt.Models.Concrete.Virtual_Machine vm)
+        public Boot(Libvirt.Models.Concrete.Virtual_Machine vm)
         {
             InitializeComponent();  
             this.Dock = DockStyle.Fill;
@@ -23,10 +23,7 @@ namespace VM_Manager.Domain.Settings
         }
         void BuildInfo()
         {
-            name_txtbx.Text = _VM.Metadata.name;
-            uuid_lbl.Text = _VM.Metadata.uuid;
-            title_txtbx.Text = _VM.Metadata.title;
-            description_txtbx.Text = _VM.Metadata.description;
+          
         }
     }
 }

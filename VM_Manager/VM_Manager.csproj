@@ -129,6 +129,12 @@
       <DependentUpon>Cpu_Ram_Create.cs</DependentUpon>
     </Compile>
     <Compile Include="Domain\Cpu_Ram_Create_Model.cs" />
+    <Compile Include="Domain\Settings\Overview.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Domain\Settings\Overview.Designer.cs">
+      <DependentUpon>Overview.cs</DependentUpon>
+    </Compile>
     <Compile Include="Domain\Storage_Create_Model.cs" />
     <Compile Include="Domain\Local_Media_Create_Model.cs" />
     <Compile Include="Domain\Create_First_Step_Model.cs" />
@@ -138,11 +144,11 @@
     <Compile Include="Domain\List_Virtual_Machines.Designer.cs">
       <DependentUpon>List_Virtual_Machines.cs</DependentUpon>
     </Compile>
-    <Compile Include="Domain\Settings\General.cs">
+    <Compile Include="Domain\Settings\Boot.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Domain\Settings\General.Designer.cs">
-      <DependentUpon>General.cs</DependentUpon>
+    <Compile Include="Domain\Settings\Boot.Designer.cs">
+      <DependentUpon>Boot.cs</DependentUpon>
     </Compile>
     <Compile Include="Domain\Settings\Main_Form.cs">
       <SubType>Form</SubType>
@@ -274,8 +280,11 @@
     <EmbeddedResource Include="Domain\List_Virtual_Machines.resx">
       <DependentUpon>List_Virtual_Machines.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Domain\Settings\General.resx">
-      <DependentUpon>General.cs</DependentUpon>
+    <EmbeddedResource Include="Domain\Settings\Overview.resx">
+      <DependentUpon>Overview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Domain\Settings\Boot.resx">
+      <DependentUpon>Boot.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Domain\Settings\Main_Form.resx">
       <DependentUpon>Main_Form.cs</DependentUpon>

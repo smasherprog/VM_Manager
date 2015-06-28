@@ -1,6 +1,6 @@
 ﻿namespace VM_Manager.Domain.Settings
 {
-    partial class General
+    partial class Overview
     {
         /// <summary> 
         /// Required designer variable.

@@ -31,31 +31,34 @@ namespace VM_Manager.Domain.Settings
                     _VM = new Libvirt.Models.Concrete.Virtual_Machine();
                     var d = System.Xml.Linq.XDocument.Parse(xmldesc);
                     _VM.From_XML(d.Root);
-                   
-                    var otherxmldec = h.virConnectGetCapabilities();
-               
-                    Debug.WriteLine("got here");
+                    
                 }
             }
-            _CurrentControl = new General(_VM);
+            _CurrentControl = new Overview(_VM);
             panel1.Controls.Add(_CurrentControl);
-   
+       
         }
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (listView1.SelectedItems.Count > 0)
             {
-                if (listView1.SelectedItems[0].Text == "General" && _CurrentControl.GetType() != typeof(General))
+                if (listView1.SelectedItems[0].Text == "Overview" && _CurrentControl.GetType() != typeof(Overview))
                 {
                     panel1.Controls.Clear();
-                    _CurrentControl = new General(_VM);
+                    _CurrentControl = new Overview(_VM);
                     panel1.Controls.Add(_CurrentControl);
                 }
-                else if (listView1.SelectedItems[0].Text == "General" && _CurrentControl.GetType() != typeof(General))
+                else if (listView1.SelectedItems[0].Text == "Boot" && _CurrentControl.GetType() != typeof(Boot))
                 {
                     panel1.Controls.Clear();
-                    _CurrentControl = new General(_VM);
+                    _CurrentControl = new Boot(_VM);
+                    panel1.Controls.Add(_CurrentControl);
+                }
+                else if (listView1.SelectedItems[0].Text == "Processor" && _CurrentControl.GetType() != typeof(Processor))
+                {
+                    panel1.Controls.Clear();
+                    _CurrentControl = new Processor(_VM);
                     panel1.Controls.Add(_CurrentControl);
                 }
             }
