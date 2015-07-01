@@ -75,10 +75,16 @@ namespace VM_Manager.Storage
         }
         public bool Execute()
         {
-            var stpool = "<pool type=\"netfs\"><name>" + _poolname + "</name>";
-            stpool += "<source><host name='" + Host_Name_txt_bx.Text + "'/><dir path='" + Source_Path_txt_bx.Text + "'/><format type='" + Format_drp_dwn.SelectedItem.ToString() + "'/></source>";
-            stpool += "<target><path>" + Target_Path_txt_bx.Text + "</path></target></pool>";
-            using (var pooldef = _connection.virStoragePoolDefineXML(stpool))
+            var model = new Libvirt.Models.Concrete.Storage_Pool();
+            model.name = _poolname;
+            var obj = new Libvirt.Models.Concrete.Storage_Pool_Netfs();
+            obj.dir_path = Source_Path_txt_bx.Text;
+            obj.host_name = Host_Name_txt_bx.Text;
+            obj.Pool_Format_Type = Libvirt.Models.Concrete.Storage_Pool_Netfs.Pool_Format_Types.auto;
+            obj.target_path = Target_Path_txt_bx.Text;
+            model.Storage_Pool_Item = obj;
+
+            using (var pooldef = _connection.virStoragePoolDefineXML(model))
             {
                 var suc = pooldef.virStoragePoolBuild(Libvirt.virStoragePoolBuildFlags.VIR_STORAGE_POOL_BUILD_NEW);
                 suc = pooldef.virStoragePoolCreate();

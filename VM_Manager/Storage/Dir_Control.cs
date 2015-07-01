@@ -42,8 +42,13 @@ namespace VM_Manager.Storage
         }
         public bool Execute()
         {
-            var stpool = "<pool type=\"dir\"><name>" + _poolname + "</name><target><path>" + textBox1.Text + "</path></target></pool>";
-            using (var pooldef = _connection.virStoragePoolDefineXML(stpool))
+            var model = new Libvirt.Models.Concrete.Storage_Pool();
+            model.name = _poolname;
+            var obj = new Libvirt.Models.Concrete.Storage_Pool_Dir();
+            obj.target_path = textBox1.Text;
+            model.Storage_Pool_Item = obj;
+
+            using (var pooldef = _connection.virStoragePoolDefineXML(model))
             {
                 var suc = pooldef.virStoragePoolBuild(Libvirt.virStoragePoolBuildFlags.VIR_STORAGE_POOL_BUILD_NEW);
                 suc = pooldef.virStoragePoolCreate();
